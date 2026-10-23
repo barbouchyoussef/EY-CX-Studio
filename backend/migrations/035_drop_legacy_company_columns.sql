@@ -1,0 +1,7 @@
+BEGIN;
+
+ALTER TABLE companies
+DROP COLUMN IF EXISTS region,
+DROP COLUMN IF EXISTS website_url;
+
+COMMIT;

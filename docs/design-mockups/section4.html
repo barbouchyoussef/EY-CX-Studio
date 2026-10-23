@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Orbit Quick Wins Timeline Preview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+
+  
+    :root {
+      --bg-deep: #111318;
+      --bg-navy: #17315f;
+      --bg-violet: #4020cb;
+      --ink: #ffffff;
+      --ink-soft: rgba(255, 255, 255, 0.84);
+      --ink-muted: rgba(255, 255, 255, 0.58);
+      --line: rgba(255, 255, 255, 0.12);
+      --line-soft: rgba(255, 255, 255, 0.08);
+      --gold: #ffd447;
+      --gold-deep: #c8973f;
+      --cyan: #85eaff;
+      --cyan-deep: #00d4ff;
+      --violet: #9f93ff;
+      --violet-deep: #4d22df;
+      --emerald: #61f2ba;
+      --rose: #ff8ba7;
+      --shadow: 0 24px 72px rgba(0, 0, 0, 0.28);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+      font-family: "Inter", system-ui, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 76% 12%, rgba(239, 202, 222, 0.92), rgba(239, 202, 222, 0.16) 24%, transparent 44%),
+        radial-gradient(circle at 84% 82%, rgba(116, 38, 255, 0.56), transparent 28%),
+        linear-gradient(118deg, #121318 0%, #17315f 34%, #2a29a7 68%, #491fd8 100%);
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 18% 28%, rgba(255, 255, 255, 0.06), transparent 12%),
+        radial-gradient(circle at 36% 82%, rgba(255, 255, 255, 0.04), transparent 10%);
+      mix-blend-mode: screen;
+      opacity: 0.6;
+    }
+
+    button,
+    a {
+      font: inherit;
+    }
+
+    .preview-shell {
+      min-height: 100vh;
+      padding: 24px;
+    }
+
+    .section {
+      position: relative;
+      width: min(1360px, 100%);
+      margin: 0 auto;
+      padding: 34px 36px 28px;
+      isolation: isolate;
+    }
+
+    .orbital-ring,
+    .orbital-ring-small,
+    .orbital-ring-left {
+      position: absolute;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.13);
+      pointer-events: none;
+    }
+
+    .section-head {
+      position: absolute;
+      top: 34px;
+      right: 36px;
+      z-index: 6;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      justify-content: flex-end;
+      text-align: right;
+      animation: riseIn 700ms ease both;
+    }
+
+    .section-number {
+      font-family: "Geist Mono", monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .section-title {
+      margin: 0;
+      font-size: clamp(1.5rem, 3vw, 2.05rem);
+      line-height: 1.08;
+      letter-spacing: -0.04em;
+      font-weight: 700;
+      color: #fff;
+    }
+    .orbital-ring {
+      top: -52px;
+      right: 22px;
+      width: 300px;
+      height: 300px;
+      opacity: 0.28;
+    }
+
+    .orbital-ring-small {
+      top: 10px;
+      right: 84px;
+      width: 180px;
+      height: 180px;
+      opacity: 0.18;
+    }
+
+    .orbital-ring-left {
+      left: -110px;
+      bottom: 140px;
+      width: 320px;
+      height: 320px;
+      opacity: 0.12;
+    }
+
+    .stage-shell {
+      position: relative;
+      z-index: 2;
+      padding: 28px 28px 24px;
+      min-height: 900px;
+    }
+
+    /* NEW: Top-left title block */
+    .timeline-header {
+      position: relative;
+      z-index: 5;
+      margin-bottom: 32px;
+      animation: riseIn 700ms ease 100ms both;
+    }
+
+    .timeline-header-title {
+      margin: 0 0 8px;
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      line-height: 1.1;
+      letter-spacing: -0.04em;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .timeline-header-subtitle {
+      margin: 0;
+      font-size: clamp(1rem, 2vw, 1.15rem);
+      line-height: 1.5;
+      color: var(--ink-soft);
+      font-weight: 500;
+    }
+
+    .intro-title {
+      margin: 0;
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 0.98;
+      letter-spacing: -0.05em;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .intro-body {
+      margin: 18px 0 0;
+      color: var(--ink-soft);
+      line-height: 1.7;
+      font-size: 1rem;
+    }
+
+    .intro-side {
+      position: absolute;
+      right: 28px;
+      top: 126px;
+      width: 220px;
+      text-align: right;
+      font-size: clamp(1.7rem, 3vw, 2.55rem);
+      line-height: 0.96;
+      letter-spacing: -0.05em;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.96);
+      animation: riseIn 820ms ease 260ms both;
+    }
+
+    .orbital-visual {
+      position: absolute;
+      left: -550px;
+      top: -100px;
+      width: 800px;
+      pointer-events: none;
+      filter: drop-shadow(0 24px 54px rgba(0, 0, 0, 0.28));
+      animation: floatIn 920ms ease 120ms both;
+    }
+
+    .orbital-visual img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    /* REFACTORED: Timeline geometry with explicit variables */
+    .timeline-stage {
+      position: relative;
+      z-index: 4;
+      width: min(1080px, calc(100% - 40px));
+      margin: 20px auto 0;
+      min-height: 800px;
+      
+      /* Core sizing variables */
+      --dot-size: 62px;
+      --dot-radius: calc(var(--dot-size) / 2);
+      --dot-gap: 180px;
+      --dot-start: 60px;
+    }
+
+    .timeline-connectors {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 2px;
+      pointer-events: none;
+    }
+
+    /* 
+      FIXED CONNECTOR LOGIC:
+      Each segment fills ONLY the space between consecutive dots.
+      Formula: top = (previous_dot_top + dot_size), height = (dot_gap - dot_size)
+      
+      Dot positions:
+      - Dot 1: top = --dot-start (60px)
+      - Dot 2: top = --dot-start + --dot-gap (240px)
+      - Dot 3: top = --dot-start + 2 * --dot-gap (420px)
+      - Dot 4: top = --dot-start + 3 * --dot-gap (600px)
+      
+      Connector segments (edge-to-edge):
+      - Seg 1: from bottom of dot 1 to top of dot 2
+      - Seg 2: from bottom of dot 2 to top of dot 3
+      - Seg 3: from bottom of dot 3 to top of dot 4
+    */
+    .timeline-connector-segment {
+      position: absolute;
+      left: 0;
+      width: 2px;
+      height: calc(var(--dot-gap) - var(--dot-size));
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.06));
+    }
+
+    /* Segment 1: starts at bottom edge of dot 1 */
+    .timeline-connector-segment.seg-1 {
+      top: calc(var(--dot-start) + var(--dot-size));
+    }
+
+    /* Segment 2: starts at bottom edge of dot 2 */
+    .timeline-connector-segment.seg-2 {
+      top: calc(var(--dot-start) + var(--dot-gap) + var(--dot-size));
+    }
+
+    /* Segment 3: starts at bottom edge of dot 3 */
+    .timeline-connector-segment.seg-3 {
+      top: calc(var(--dot-start) + 2 * var(--dot-gap) + var(--dot-size));
+    }
+
+    .timeline-node {
+      position: absolute;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 24px;
+    }
+
+    /* Dot positions using the same variable system */
+    .timeline-node.step-1 {
+      top: var(--dot-start);
+    }
+
+    .timeline-node.step-2 {
+      top: calc(var(--dot-start) + var(--dot-gap));
+    }
+
+    .timeline-node.step-3 {
+      top: calc(var(--dot-start) + 2 * var(--dot-gap));
+    }
+
+    .timeline-node.step-4 {
+      top: calc(var(--dot-start) + 3 * var(--dot-gap));
+    }
+
+    .timeline-node[data-side="left"] {
+      grid-template-areas: "label dot empty";
+    }
+
+    .timeline-node[data-side="right"] {
+      grid-template-areas: "empty dot label";
+    }
+
+    .label-box {
+      text-align: right;
+      padding: 16px 20px;
+      grid-area: label;
+    }
+
+    .timeline-node[data-side="right"] .label-box {
+      text-align: left;
+    }
+
+    .label-time {
+      font-family: "Geist Mono", monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.5);
+      margin-bottom: 4px;
+    }
+
+    .label-title {
+      font-size: 1.05rem;
+      line-height: 1.3;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.92);
+    }
+
+    .dot-wrap {
+      grid-area: dot;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .timeline-dot {
+      width: var(--dot-size);
+      height: var(--dot-size);
+      border-radius: 50%;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.7);
+      cursor: pointer;
+      transition: all 340ms cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .timeline-dot:hover {
+      border-color: rgba(255, 255, 255, 0.4);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.06));
+      color: rgba(255, 255, 255, 0.95);
+      transform: scale(1.08);
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.3);
+    }
+
+    .timeline-dot.is-active {
+      border-color: var(--cyan);
+      background: linear-gradient(135deg, var(--cyan-deep), var(--violet-deep));
+      color: #fff;
+      box-shadow: 0 8px 32px rgba(0, 212, 255, 0.4);
+    }
+
+    .detail-popup {
+      position: fixed;
+      inset: 0;
+      z-index: 40;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: rgba(8, 11, 20, 0.34);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 260ms ease;
+    }
+
+    .detail-popup.is-visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .detail-popup-card {
+      width: min(720px, 100%);
+      max-height: min(84vh, 900px);
+      overflow: auto;
+      transform: translateY(18px) scale(0.97);
+      transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .detail-popup.is-visible .detail-popup-card {
+      transform: translateY(0) scale(1);
+    }
+
+    .qw-card {
+      color: var(--ink);
+      background: linear-gradient(135deg, rgba(17, 19, 24, 0.98), rgba(23, 49, 95, 0.9));
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 20px;
+      padding: 28px;
+      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.48);
+      backdrop-filter: blur(16px);
+    }
+
+    .qw-card-top {
+      display: grid;
+      grid-template-columns: 64px 1fr auto;
+      gap: 16px;
+      align-items: start;
+      margin-bottom: 24px;
+    }
+
+    .qw-num {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--violet), var(--violet-deep));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #fff;
+      box-shadow: 0 8px 24px rgba(77, 34, 223, 0.4);
+    }
+
+    .qw-title {
+      margin: 0;
+      font-size: 1.3rem;
+      line-height: 1.25;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.02em;
+    }
+
+    .qw-owner-chip {
+      grid-column: 2;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.08);
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--ink-soft);
+      margin-top: 8px;
+      justify-self: start;
+    }
+
+    .qw-close {
+      width: 36px;
+      height: 36px;
+      border: 0;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      color: rgba(255, 255, 255, 0.84);
+      cursor: pointer;
+      font-size: 0.95rem;
+      font-weight: 700;
+      transition: background 180ms ease, transform 180ms ease;
+    }
+
+    .qw-close:hover {
+      background: rgba(255, 255, 255, 0.14);
+      transform: translateY(-1px);
+    }
+
+    .qw-body {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .owner-row {
+      display: none;
+    }
+
+    .ba-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .ba-cell {
+      padding: 16px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .ba-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--ink-muted);
+      margin-bottom: 8px;
+    }
+
+    .ba-text {
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: var(--ink-soft);
+    }
+
+    .orbit-note {
+      display: flex;
+      gap: 12px;
+      padding: 16px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(159, 147, 255, 0.12), rgba(64, 32, 203, 0.08));
+      border: 1px solid rgba(159, 147, 255, 0.2);
+    }
+
+    .on-icon {
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--violet);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .on-text {
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: var(--ink-soft);
+    }
+
+    .benchmark-card {
+      padding: 16px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .benchmark-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 10px;
+      border-radius: 12px;
+      background: var(--gold);
+      color: var(--bg-deep);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      align-self: start;
+    }
+
+    .benchmark-copy {
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: var(--ink-soft);
+    }
+
+    .benchmark-link {
+      align-self: start;
+      color: var(--cyan);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: color 200ms ease;
+    }
+
+    .benchmark-link:hover {
+      color: var(--cyan-deep);
+    }
+
+    @keyframes riseIn {
+      from {
+        opacity: 0;
+        transform: translateY(16px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes floatIn {
+      from {
+        opacity: 0;
+        transform: translateY(24px) rotate(-2deg);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) rotate(0deg);
+      }
+    }
+
+    @media (max-width: 960px) {
+      .timeline-stage {
+        --dot-gap: 160px;
+        --dot-start: 50px;
+      }
+
+      .label-box {
+        max-width: 220px;
+      }
+
+      .detail-popup {
+        padding: 20px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .section-head {
+        position: relative;
+        top: auto;
+        right: auto;
+        margin-bottom: 20px;
+        justify-content: flex-start;
+        text-align: left;
+      }
+
+      .timeline-stage {
+        --dot-gap: 200px;
+        --dot-start: 40px;
+        width: 100%;
+        margin-top: 40px;
+      }
+
+      .timeline-node {
+        grid-template-columns: 58px 1fr;
+        gap: 16px;
+      }
+
+      .timeline-node[data-side="left"],
+      .timeline-node[data-side="right"] {
+        grid-template-areas: "dot label";
+      }
+
+      .timeline-node .label-box {
+        grid-column: 2;
+        justify-self: start;
+        text-align: left;
+        padding: 0;
+        max-width: none;
+      }
+
+      .detail-popup {
+        padding: 14px;
+      }
+
+      .ba-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .qw-card-top {
+        grid-template-columns: 58px 1fr auto;
+      }
+
+      .qw-owner-chip {
+        grid-column: 1 / -1;
+        justify-self: start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="preview-shell">
+    <section class="section">
+      <div class="orbital-ring"></div>
+      <div class="orbital-ring-small"></div>
+      <div class="orbital-ring-left"></div>
+
+      <div class="section-head">
+        <span class="section-number">05</span>
+        <h1 class="section-title">Your Quick Wins, In Order</h1>
+      </div>
+
+      <div class="stage-shell">
+
+          <div class="orbital-visual" aria-hidden="true">
+            <img src="d87248c323a11fe6364ab034b73bea1e1c1e77f7.png" alt="" />
+          </div>
+
+          <!-- NEW: Top-left title block -->
+          
+
+          <div class="timeline-stage">
+            <div class="timeline-connectors" aria-hidden="true">
+              <div class="timeline-connector-segment seg-1"></div>
+              <div class="timeline-connector-segment seg-2"></div>
+              <div class="timeline-connector-segment seg-3"></div>
+            </div>
+
+            <div class="timeline-node step-1" data-side="left">
+              <div class="label-box">
+                <div class="label-time">Week 1</div>
+                <div class="label-title">Start one weekly NPS pulse</div>
+              </div>
+              <div class="dot-wrap">
+                <button class="timeline-dot dot-1 is-active" type="button" data-step="1" aria-label="Open quick win 1">1</button>
+              </div>
+            </div>
+
+            <div class="timeline-node step-2" data-side="right">
+              <div class="label-box">
+                <div class="label-time">Month 1</div>
+                <div class="label-title">Open a shared pain-point backlog</div>
+              </div>
+              <div class="dot-wrap">
+                <button class="timeline-dot dot-2" type="button" data-step="2" aria-label="Open quick win 2">2</button>
+              </div>
+            </div>
+
+            <div class="timeline-node step-3" data-side="left">
+              <div class="label-box">
+                <div class="label-time">Month 2</div>
+                <div class="label-title">Personalize pre-trip communication</div>
+              </div>
+              <div class="dot-wrap">
+                <button class="timeline-dot dot-3" type="button" data-step="3" aria-label="Open quick win 3">3</button>
+              </div>
+            </div>
+
+            <div class="timeline-node step-4" data-side="right">
+              <div class="label-box">
+                <div class="label-time">Month 3-4</div>
+                <div class="label-title">Define one cross-channel standard</div>
+              </div>
+              <div class="dot-wrap">
+                <button class="timeline-dot dot-4" type="button" data-step="4" aria-label="Open quick win 4">4</button>
+              </div>
+            </div>
+
+          </div>
+      </div>
+
+      <div class="detail-popup" id="detail-popup" aria-hidden="true"></div>
+    </section>
+  </div>
+
+  <script>
+    const quickWins = {
+      1: {
+        title: "Start one weekly NPS pulse after each completed trip",
+        owner: "CX Owner",
+        today:
+          "Satisfaction is mostly inferred from the absence of complaints, which means quiet disappointment can pass unnoticed until it affects repeat bookings.",
+        after:
+          "You get one clean weekly signal showing which journeys create loyalty and which ones create silent churn before the next booking cycle is lost.",
+        orbitTake:
+          "Add one post-trip question into the current follow-up flow and route low scores into a personal callback. This gives the rest of the report a measurable baseline immediately.",
+        benchmark: {
+          logo: "NPS",
+          name: "Medallia travel benchmark",
+          action: "Travel brands that systematize post-experience NPS create earlier recovery triggers and stronger repeat-intent visibility.",
+          href: "https://www.medallia.com/customer-experience-travel-hospitality/"
+        }
+      },
+      2: {
+        title: "Open one shared pain-point backlog with named owners",
+        owner: "CX Owner + Team Leads",
+        today:
+          "Issues are often solved when they become loud, but quieter friction points are not consistently named, prioritized, or tracked across teams.",
+        after:
+          "Every recurring pain point has an owner, a next action, and visible follow-through, so the team can improve proactively instead of reactively.",
+        orbitTake:
+          "Start with a lightweight shared tracker. Problem, frequency, owner, target fix date, and status are enough to turn good intent into a real improvement loop.",
+        benchmark: {
+          logo: "CX",
+          name: "Qualtrics XM Institute",
+          action: "Closed-loop issue management is consistently linked to lower complaint recurrence and better operational accountability.",
+          href: "https://www.qualtrics.com/experience-management/customer/closed-loop-feedback/"
+        }
+      },
+      3: {
+        title: "Use CRM history to personalize pre-trip communication for return travelers",
+        owner: "Operations + CX Owner",
+        today:
+          "Returning customers still receive communication that feels generic, even when the business already holds useful history about past trips and preferences.",
+        after:
+          "High-value travelers feel recognized before the trip starts, which increases trust, relevance, and the likelihood of repeat purchase.",
+        orbitTake:
+          "Start manually with the top repeat customers and one template using past trip history plus one suggested next destination. If the response is strong, automate later.",
+        benchmark: {
+          logo: "CRM",
+          name: "McKinsey personalization research",
+          action: "Brands that use existing customer data to tailor outreach see stronger conversion and repeat-purchase behavior than generic messaging programs.",
+          href: "https://www.mckinsey.com/capabilities/growth-marketing-and-sales/our-insights/the-value-of-getting-personalization-right-or-wrong-is-multiplying"
+        }
+      },
+      4: {
+        title: "Define one cross-channel experience standard for website, email, and WhatsApp",
+        owner: "CX Owner + Digital Lead",
+        today:
+          "Customers can encounter different tones, expectations, and handoff quality depending on the channel they use, which weakens trust even when service intent is good.",
+        after:
+          "The brand starts to feel coherent across the journey, making it easier for customers to move from discovery to booking without repeated effort or mixed signals.",
+        orbitTake:
+          "Write one concise standard covering tone, information expected at each stage, and the next step a customer should always understand. Make it usable by every customer-facing team.",
+        benchmark: {
+          logo: "UX",
+          name: "Nielsen Norman Group",
+          action: "Experience consistency across channels reduces friction and repeated effort, especially when customers move between digital and human touchpoints.",
+          href: "https://www.nngroup.com/articles/omnichannel-ux/"
+        }
+      }
+    };
+
+    const dots = document.querySelectorAll(".timeline-dot");
+    const popup = document.getElementById("detail-popup");
+
+    function popupMarkup(step) {
+      const item = quickWins[step];
+      return `
+        <div class="detail-popup-card" role="dialog" aria-modal="true" aria-labelledby="quick-win-title">
+        <article class="qw-card">
+          <div class="qw-card-top">
+            <div class="qw-num">${step}</div>
+            <div>
+              <h3 class="qw-title" id="quick-win-title">${item.title}</h3>
+              <div class="qw-owner-chip">Owner | ${item.owner}</div>
+            </div>
+            <button class="qw-close" type="button" aria-label="Close quick win">X</button>
+          </div>
+          <div class="qw-body">
+            <div class="owner-row">
+              <div class="owner-label">Owner</div>
+              <div class="owner-avatar">@</div>
+              <div class="owner-name">${item.owner}</div>
+            </div>
+
+            <div class="ba-grid">
+              <div class="ba-cell before">
+                <div class="ba-label">Today</div>
+                <div class="ba-text">${item.today}</div>
+              </div>
+              <div class="ba-cell after">
+                <div class="ba-label">After this</div>
+                <div class="ba-text">${item.after}</div>
+              </div>
+            </div>
+
+           
+            
+          </div>
+        </article>
+        </div>
+      `;
+    }
+
+    function closePopup() {
+      if (!popup) return;
+      popup.classList.remove("is-visible");
+      popup.setAttribute("aria-hidden", "true");
+      popup.innerHTML = "";
+    }
+
+    function activateStep(step) {
+      if (!popup) return;
+      dots.forEach((dot) => {
+        dot.classList.toggle("is-active", dot.dataset.step === step);
+      });
+
+      popup.innerHTML = popupMarkup(step);
+      requestAnimationFrame(() => {
+        popup.classList.add("is-visible");
+        popup.setAttribute("aria-hidden", "false");
+      });
+    }
+
+    dots.forEach((dot) => {
+      dot.addEventListener("click", () => activateStep(dot.dataset.step));
+    });
+
+    if (popup) {
+      popup.addEventListener("click", (event) => {
+        if (event.target === popup || event.target.closest(".qw-close")) {
+          closePopup();
+        }
+      });
+    }
+
+    window.addEventListener("keydown", (event) => {
+      if (popup && event.key === "Escape" && popup.classList.contains("is-visible")) {
+        closePopup();
+      }
+    });
+  </script>
+</body>
+</html>

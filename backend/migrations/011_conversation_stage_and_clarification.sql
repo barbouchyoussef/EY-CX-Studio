@@ -1,0 +1,8 @@
+BEGIN;
+
+ALTER TABLE assessments
+    ADD COLUMN IF NOT EXISTS conversation_stage VARCHAR(30) NOT NULL DEFAULT 'intro',
+    ADD COLUMN IF NOT EXISTS clarification_count INT NOT NULL DEFAULT 0;
+
+COMMIT;
+

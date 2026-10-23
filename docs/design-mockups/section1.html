@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Orbit Section 1 Hero Blue Glow Preview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    :root {
+      --bg-deep: #111318;
+      --bg-navy: #17315f;
+      --bg-violet: #4020cb;
+      --bg-lilac: #efcade;
+      --ink: #ffffff;
+      --ink-soft: rgba(255, 255, 255, 0.84);
+      --ink-muted: rgba(255, 255, 255, 0.6);
+      --line: rgba(255, 255, 255, 0.12);
+      --line-soft: rgba(255, 255, 255, 0.08);
+      --gold: #ffd447;
+      --glass: rgba(255, 255, 255, 0.06);
+      --glass-strong: rgba(255, 255, 255, 0.11);
+      --shadow: 0 24px 72px rgba(0, 0, 0, 0.28);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+      font-family: "Inter", system-ui, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 76% 12%, rgba(239, 202, 222, 0.92), rgba(239, 202, 222, 0.16) 24%, transparent 44%),
+        radial-gradient(circle at 84% 82%, rgba(116, 38, 255, 0.56), transparent 28%),
+        linear-gradient(118deg, #121318 0%, #17315f 34%, #2a29a7 68%, #491fd8 100%);
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 18% 28%, rgba(255, 255, 255, 0.06), transparent 12%),
+        radial-gradient(circle at 36% 82%, rgba(255, 255, 255, 0.04), transparent 10%);
+      mix-blend-mode: screen;
+      opacity: 0.6;
+    }
+
+    .preview-shell {
+      min-height: 100vh;
+      padding: 20px 24px 28px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero {
+      position: relative;
+      width: min(1320px, 100%);
+      min-height: 760px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(0, 1.02fr) minmax(420px, 0.98fr);
+      gap: 28px;
+      padding: 46px 44px 22px;
+      isolation: isolate;
+    }
+
+    .download-btn {
+      position: absolute;
+      top: 10px;
+      right: 18px;
+      z-index: 6;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 13px 18px;
+      border-radius: 999px;
+      border: 0;
+      background: linear-gradient(135deg, var(--gold), rgba(255, 255, 255, 0.94));
+      color: #111318;
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 700;
+      box-shadow: 0 16px 28px rgba(0, 0, 0, 0.18);
+      transition: transform 200ms ease, box-shadow 200ms ease, filter 200ms ease;
+    }
+
+    .download-btn:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.03);
+    }
+
+    .download-btn svg {
+      width: 14px;
+      height: 14px;
+      stroke: currentColor;
+      stroke-width: 2;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .ey-dot {
+      position: absolute;
+      top: 10px;
+      left: 12px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #fff;
+      box-shadow: 0 0 0 4px rgba(57, 182, 255, 0.22);
+      z-index: 5;
+    }
+
+    .orbital-ring,
+    .orbital-ring-small,
+    .orbital-ring-left {
+      position: absolute;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.13);
+      pointer-events: none;
+    }
+
+    .orbital-ring {
+      top: -82px;
+      right: -18px;
+      width: 420px;
+      height: 420px;
+      opacity: 0.34;
+    }
+
+    .orbital-ring-small {
+      top: 28px;
+      right: 86px;
+      width: 250px;
+      height: 250px;
+      opacity: 0.22;
+    }
+
+    .orbital-ring-left {
+      left: -178px;
+      bottom: 92px;
+      width: 460px;
+      height: 460px;
+      opacity: 0.18;
+    }
+
+    .hero-copy {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      min-width: 0;
+      padding-top: 8px;
+    }
+
+    .report-tag {
+      width: fit-content;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 14px;
+      margin-bottom: 28px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.06);
+      color: rgba(255, 255, 255, 0.88);
+      font-family: "Geist Mono", monospace;
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      backdrop-filter: blur(12px);
+    }
+
+
+
+    .company-name {
+      margin: 0;
+      max-width: 10ch;
+      font-size: clamp(3.8rem, 7vw, 6rem);
+      line-height: 0.92;
+      letter-spacing: -0.075em;
+      font-weight: 800;
+      color: var(--ink);
+    }
+
+    .company-context {
+      margin: 16px 0 0;
+      color: var(--ink-muted);
+      font-size: 1rem;
+      letter-spacing: 0.01em;
+    }
+
+    .hero-subcopy {
+      margin: 28px 0 0;
+      max-width: 58ch;
+      color: var(--ink-soft);
+      font-size: 1.02rem;
+      line-height: 1.72;
+    }
+
+    .hero-visual {
+      position: relative;
+      z-index: 1;
+      min-height: 560px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+    }
+
+    .orbit-small {
+      position: absolute;
+      top: -100px;
+      right: -12px;
+      width: min(560px, 100%);
+      z-index: 1;
+      transform: rotate(-2deg);
+      filter:
+        drop-shadow(0 28px 48px rgba(0, 0, 0, 0.28))
+        drop-shadow(0 0 34px rgba(255, 255, 255, 0.08));
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .hero-message {
+      position: absolute;
+      right: 18px;
+      bottom: 26px;
+      z-index: 2;
+      width: min(360px, 76%);
+      margin: 0;
+      padding: 18px 20px 20px;
+      border-radius: 22px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(11, 15, 29, 0.22);
+      backdrop-filter: blur(12px);
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 0.98rem;
+      line-height: 1.62;
+    }
+
+    .stats-strip {
+      position: relative;
+      z-index: 3;
+      grid-column: 1 / -1;
+      margin-top: 22px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      align-items: stretch;
+    }
+
+    .stat {
+      min-width: 0;
+      min-height: 176px;
+      padding: 24px 24px 26px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 16px;
+      border-radius: 22px;
+      border: 1px solid var(--line-soft);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.03)),
+        rgba(8, 11, 20, 0.12);
+      backdrop-filter: blur(10px);
+    }
+
+    .stat-head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .stat-icon {
+      width: 48px;
+      height: 48px;
+      flex-shrink: 0;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      color: #fff;
+      box-shadow:
+        0 12px 24px rgba(0, 0, 0, 0.22),
+        inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    }
+
+    .stat-icon svg {
+      width: 22px;
+      height: 22px;
+      stroke: currentColor;
+      stroke-width: 1.9;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .stat-icon.stage {
+      background: linear-gradient(135deg, #ffd447 0%, #c8973f 100%);
+    }
+
+    .stat-icon.strongest {
+      background: linear-gradient(135deg, #85eaff 0%, #00d4ff 100%);
+    }
+
+    .stat-icon.priority {
+      background: linear-gradient(135deg, #7c5cff 0%, #4d22df 100%);
+    }
+
+    .stat-label {
+      margin: 0;
+      font-family: "Geist Mono", monospace;
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: rgba(255, 255, 255, 0.46);
+    }
+
+    .stat-body {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      justify-content: flex-end;
+      min-height: 84px;
+    }
+
+    .stat-value {
+      margin: 0;
+      font-size: clamp(1.45rem, 2.4vw, 1.9rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      color: #fff;
+      text-wrap: balance;
+    }
+
+    .stat-value.priority {
+      color: #ffe4eb;
+    }
+
+    .stat-subvalue {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.68);
+      font-size: 1.02rem;
+    }
+
+    .note {
+      margin-top: 14px;
+      grid-column: 1 / -1;
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.34);
+    }
+
+    @media (max-width: 1120px) {
+      .hero {
+        grid-template-columns: 1fr;
+        min-height: auto;
+      }
+
+      .hero-visual {
+        min-height: 500px;
+      }
+
+      .orbit-small {
+        top: -8px;
+        right: 50%;
+        transform: translateX(44%) rotate(-2deg);
+        width: min(470px, 88%);
+      }
+
+      .hero-message {
+        right: 50%;
+        transform: translateX(50%);
+        width: min(420px, 84%);
+        bottom: 18px;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .preview-shell {
+        padding: 8px 12px 18px;
+      }
+
+      .hero {
+        padding: 22px 16px 12px;
+        gap: 20px;
+      }
+
+      .download-btn {
+        top: 0;
+        right: 0;
+        padding: 10px 14px;
+        font-size: 0.8rem;
+      }
+
+      .company-name {
+        max-width: none;
+        font-size: clamp(3rem, 16vw, 4.7rem);
+      }
+
+      .hero-visual {
+        min-height: 480px;
+      }
+
+      .orbit-small {
+        top: 28px;
+        right: 50%;
+        transform: translateX(42%) rotate(-2deg);
+        width: min(370px, 92%);
+      }
+
+      .hero-message {
+        width: 100%;
+        max-width: none;
+      }
+
+      .stats-strip {
+        grid-template-columns: 1fr;
+        top : 10px;
+      }
+
+      .stat {
+        min-height: 110px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="preview-shell">
+    <div class="hero">
+      <a class="download-btn" href="#" role="button">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 4v10"></path>
+          <path d="m8 10 4 4 4-4"></path>
+          <path d="M5 19h14"></path>
+        </svg>
+        <span>Download PDF</span>
+      </a>
+
+      <div class="orbital-ring" aria-hidden="true"></div>
+      <div class="orbital-ring-small" aria-hidden="true"></div>
+      <div class="orbital-ring-left" aria-hidden="true"></div>
+
+      <div class="hero-copy">
+        <div>
+          <div class="report-tag">
+            <span id="report-title">CX Maturity Report</span>
+            <span id="report-date">May 2026</span>
+          </div>
+
+          <h1 id="company-name" class="company-name">Souvenirs Voyages</h1>
+
+          <p class="company-context">
+            <span id="sector-name">Travel &amp; Hospitality</span>
+            <span aria-hidden="true">·</span>
+            <span id="region-name">MENA Region</span>
+          </p>
+
+          <p class="hero-subcopy">
+            Souvenirs voyages demonstrates established foundations in decision-making and ownership within its CX governance, with clear accountability signals such as a named owner and traceable feedback influencing decisions like website optimization. However, maturity remains uneven, as core areas like feedback collection and the use of insights remain at a basic level, lacking structured processes or cross-functional coordination.</p>
+        </div>
+
+      </div>
+
+      <div class="hero-visual">
+        <img
+          class="orbit-small"
+          src="./1b428a9545ed4c55816d6fd0bd7115df485a185c.png"
+          alt=""
+        />
+
+      </div>
+
+      <div class="stats-strip">
+        <article class="stat">
+          <div class="stat-head">
+            <div class="stat-icon stage" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="m12 14 4-4"></path>
+                <path d="M3.34 19a10 10 0 1 1 17.32 0"></path>
+              </svg>
+            </div>
+            <p class="stat-label">Stage</p>
+          </div>
+          <div class="stat-body">
+            <p id="stage-value" class="stat-value">Established</p>
+            <p id="stage-level" class="stat-subvalue">2 / 3</p>
+          </div>
+        </article>
+
+        <article class="stat">
+          <div class="stat-head">
+            <div class="stat-icon strongest" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M7 7h10v10"></path>
+                <path d="M7 17 17 7"></path>
+              </svg>
+            </div>
+            <p class="stat-label">Strongest</p>
+          </div>
+          <div class="stat-body">
+            <p id="strongest-axis" class="stat-value">Manage</p>
+            <p id="strongest-level" class="stat-subvalue">3 / 3</p>
+          </div>
+        </article>
+
+        <article class="stat">
+          <div class="stat-head">
+            <div class="stat-icon priority" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="8"></circle>
+                <path d="M12 8v8"></path>
+                <path d="M8 12h8"></path>
+              </svg>
+            </div>
+            <p class="stat-label">Priority</p>
+          </div>
+          <div class="stat-body">
+            <p id="priority-axis" class="stat-value priority">Improve</p>
+            <p id="priority-level" class="stat-subvalue">1 / 3</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const hero = {
+      report_title: "CX Maturity Report",
+      report_date_label: "May 2026",
+      company_name: "Souvenirs Voyages",
+      sector_name: "Travel & Hospitality",
+      region: "MENA Region",
+      overall_level_label: "2 / 3",
+      overall_maturity_band: "Established",
+      strongest_axis: "Manage",
+      strongest_axis_level_label: "3 / 3",
+      priority_axis: "Improve",
+      priority_axis_level_label: "1 / 3",
+    };
+
+    const setText = (id, value) => {
+      const node = document.getElementById(id);
+      if (node) node.textContent = value ?? "";
+    };
+
+    setText("report-title", hero.report_title);
+    setText("report-date", hero.report_date_label);
+    setText("company-name", hero.company_name);
+    setText("sector-name", hero.sector_name);
+    setText("region-name", hero.region);
+    setText("stage-value", hero.overall_maturity_band);
+    setText("stage-level", hero.overall_level_label);
+    setText("strongest-axis", hero.strongest_axis);
+    setText("strongest-level", hero.strongest_axis_level_label);
+    setText("priority-axis", hero.priority_axis);
+    setText("priority-level", hero.priority_axis_level_label);
+  </script>
+</body>
+</html>

@@ -1,0 +1,450 @@
+/* The decorative orbit image in this section sits at left:-550px, top:-100px. It needs a
+   positioning context and a clip here, or it anchors to the page itself and floats over the
+   hero and the radar. The element also carries Tailwind's `relative overflow-hidden`, but the
+   other three shells in this report declare it in CSS and this one did not -- so it is stated
+   here too, and no longer depends on a utility class surviving the build. */
+.report-quick-wins-shell {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+.report-quick-wins-shell .section {
+  position: relative;
+  width: min(1360px, 100%);
+  margin: 0 auto;
+  padding: 34px 36px 28px;
+  isolation: isolate;
+}
+.report-quick-wins-shell .orbital-ring,
+.report-quick-wins-shell .orbital-ring-small,
+.report-quick-wins-shell .orbital-ring-left {
+  position: absolute;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  pointer-events: none;
+}
+.report-quick-wins-shell .orbital-ring {
+  top: -52px;
+  right: 22px;
+  width: 300px;
+  height: 300px;
+  opacity: 0.28;
+}
+.report-quick-wins-shell .orbital-ring-small {
+  top: 10px;
+  right: 84px;
+  width: 180px;
+  height: 180px;
+  opacity: 0.18;
+}
+.report-quick-wins-shell .orbital-ring-left {
+  left: -110px;
+  bottom: 140px;
+  width: 320px;
+  height: 320px;
+  opacity: 0.12;
+}
+.report-quick-wins-shell .section-head {
+  position: absolute;
+  top: 34px;
+  right: 36px;
+  z-index: 6;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  justify-content: flex-end;
+  text-align: right;
+  animation: reportQuickWinsRiseIn 700ms ease both;
+}
+.report-quick-wins-shell .section-number {
+  font-family: "Geist Mono", monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+}
+.report-quick-wins-shell .section-title {
+  margin: 0;
+  font-size: clamp(1.5rem, 3vw, 2.05rem);
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+  font-weight: 700;
+  color: #fff;
+}
+.report-quick-wins-shell .stage-shell {
+  position: relative;
+  z-index: 2;
+  padding: 28px 28px 24px;
+  min-height: 900px;
+}
+.report-quick-wins-shell .orbital-visual {
+  position: absolute;
+  left: -550px;
+  top: -100px;
+  width: 800px;
+  pointer-events: none;
+  filter: drop-shadow(0 24px 54px rgba(0, 0, 0, 0.28));
+  animation: reportQuickWinsFloatIn 920ms ease 120ms both;
+}
+.report-quick-wins-shell .orbital-visual img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.report-quick-wins-shell .timeline-stage {
+  position: relative;
+  z-index: 4;
+  width: min(1080px, calc(100% - 40px));
+  margin: 20px auto 0;
+  min-height: 800px;
+  --dot-size: 62px;
+  --dot-gap: 180px;
+  --dot-start: 60px;
+}
+.report-quick-wins-shell .timeline-connectors {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  pointer-events: none;
+}
+.report-quick-wins-shell .timeline-connector-segment {
+  position: absolute;
+  left: 0;
+  width: 2px;
+  height: calc(var(--dot-gap) - var(--dot-size));
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.06));
+}
+.report-quick-wins-shell .timeline-connector-segment.seg-1 {
+  top: calc(var(--dot-start) + var(--dot-size));
+}
+.report-quick-wins-shell .timeline-connector-segment.seg-2 {
+  top: calc(var(--dot-start) + var(--dot-gap) + var(--dot-size));
+}
+.report-quick-wins-shell .timeline-connector-segment.seg-3 {
+  top: calc(var(--dot-start) + 2 * var(--dot-gap) + var(--dot-size));
+}
+.report-quick-wins-shell .timeline-node {
+  position: absolute;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 24px;
+}
+.report-quick-wins-shell .timeline-node.step-1 {
+  top: var(--dot-start);
+}
+.report-quick-wins-shell .timeline-node.step-2 {
+  top: calc(var(--dot-start) + var(--dot-gap));
+}
+.report-quick-wins-shell .timeline-node.step-3 {
+  top: calc(var(--dot-start) + 2 * var(--dot-gap));
+}
+.report-quick-wins-shell .timeline-node.step-4 {
+  top: calc(var(--dot-start) + 3 * var(--dot-gap));
+}
+.report-quick-wins-shell .timeline-node[data-side="left"] {
+  grid-template-areas: "label dot empty";
+}
+.report-quick-wins-shell .timeline-node[data-side="right"] {
+  grid-template-areas: "empty dot label";
+}
+.report-quick-wins-shell .label-box {
+  text-align: right;
+  padding: 16px 20px;
+  grid-area: label;
+}
+.report-quick-wins-shell .timeline-node[data-side="right"] .label-box {
+  text-align: left;
+}
+.report-quick-wins-shell .label-time {
+  font-family: "Geist Mono", monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 4px;
+}
+.report-quick-wins-shell .label-title {
+  font-size: 1.05rem;
+  line-height: 1.3;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.92);
+}
+.report-quick-wins-shell .dot-wrap {
+  grid-area: dot;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.report-quick-wins-shell .timeline-dot {
+  width: var(--dot-size);
+  height: var(--dot-size);
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  transition: all 340ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+.report-quick-wins-shell .timeline-dot:hover {
+  border-color: rgba(255, 255, 255, 0.4);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.06));
+  color: rgba(255, 255, 255, 0.95);
+  transform: scale(1.08);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.3);
+}
+.report-quick-wins-shell .timeline-dot.is-active {
+  border-color: #85eaff;
+  background: linear-gradient(135deg, #00d4ff, #4d22df);
+  color: #fff;
+  box-shadow: 0 8px 32px rgba(0, 212, 255, 0.4);
+}
+.report-quick-wins-shell .detail-popup {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(8, 11, 20, 0.34);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 260ms ease;
+}
+.report-quick-wins-shell .detail-popup.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+.report-quick-wins-shell .detail-popup-card {
+  width: min(720px, 100%);
+  max-height: min(84vh, 900px);
+  overflow: auto;
+  transform: translateY(18px) scale(0.97);
+  transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.report-quick-wins-shell .detail-popup.is-visible .detail-popup-card {
+  transform: translateY(0) scale(1);
+}
+.report-quick-wins-shell .qw-card {
+  color: #fff;
+  background: linear-gradient(135deg, rgba(17, 19, 24, 0.98), rgba(23, 49, 95, 0.9));
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 20px;
+  padding: 28px;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.48);
+  backdrop-filter: blur(16px);
+}
+.report-quick-wins-shell .qw-card-top {
+  display: grid;
+  grid-template-columns: 64px 1fr auto;
+  gap: 16px;
+  align-items: start;
+  margin-bottom: 24px;
+}
+.report-quick-wins-shell .qw-num {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #9f93ff, #4d22df);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #fff;
+  box-shadow: 0 8px 24px rgba(77, 34, 223, 0.4);
+}
+.report-quick-wins-shell .qw-title {
+  margin: 0;
+  font-size: 1.3rem;
+  line-height: 1.25;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.02em;
+}
+.report-quick-wins-shell .qw-owner-chip {
+  grid-column: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.08);
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.84);
+  margin-top: 8px;
+  justify-self: start;
+}
+.report-quick-wins-shell .qw-close {
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.84);
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 700;
+  transition: background 180ms ease, transform 180ms ease;
+}
+.report-quick-wins-shell .qw-close:hover {
+  background: rgba(255, 255, 255, 0.14);
+  transform: translateY(-1px);
+}
+.report-quick-wins-shell .qw-body {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.report-quick-wins-shell .ba-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.report-quick-wins-shell .ba-cell {
+  padding: 16px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.report-quick-wins-shell .ba-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.58);
+  margin-bottom: 8px;
+}
+.report-quick-wins-shell .ba-text {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.84);
+}
+@keyframes reportQuickWinsRiseIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes reportQuickWinsFloatIn {
+  from { opacity: 0; transform: translateY(24px) rotate(-2deg); }
+  to { opacity: 1; transform: translateY(0) rotate(0deg); }
+}
+@media (max-width: 960px) {
+  .report-quick-wins-shell .timeline-stage {
+    --dot-gap: 160px;
+    --dot-start: 50px;
+  }
+  .report-quick-wins-shell .label-box {
+    max-width: 220px;
+  }
+  .report-quick-wins-shell .detail-popup {
+    padding: 20px;
+  }
+}
+@media (max-width: 768px) {
+  .report-quick-wins-shell .section-head {
+    position: relative;
+    top: auto;
+    right: auto;
+    margin-bottom: 20px;
+    justify-content: flex-start;
+    text-align: left;
+  }
+  .report-quick-wins-shell .timeline-stage {
+    --dot-gap: 200px;
+    --dot-start: 40px;
+    width: 100%;
+    margin-top: 40px;
+  }
+  .report-quick-wins-shell .timeline-node {
+    grid-template-columns: 58px 1fr;
+    gap: 16px;
+  }
+  .report-quick-wins-shell .timeline-node[data-side="left"],
+  .report-quick-wins-shell .timeline-node[data-side="right"] {
+    grid-template-areas: "dot label";
+  }
+  .report-quick-wins-shell .timeline-node .label-box {
+    grid-column: 2;
+    justify-self: start;
+    text-align: left;
+    padding: 0;
+    max-width: none;
+  }
+  .report-quick-wins-shell .detail-popup {
+    padding: 14px;
+  }
+  .report-quick-wins-shell .ba-grid {
+    grid-template-columns: 1fr;
+  }
+  .report-quick-wins-shell .qw-card-top {
+    grid-template-columns: 58px 1fr auto;
+  }
+  .report-quick-wins-shell .qw-owner-chip {
+    grid-column: 1 / -1;
+    justify-self: start;
+  }
+}
+@media print {
+  .report-quick-wins-shell .orbital-ring,
+  .report-quick-wins-shell .orbital-ring-small,
+  .report-quick-wins-shell .orbital-ring-left,
+  .report-quick-wins-shell .orbital-visual,
+  .report-quick-wins-shell .timeline-stage,
+  .report-quick-wins-shell .detail-popup {
+    display: none !important;
+  }
+  .report-quick-wins-shell .section {
+    width: 100%;
+    padding: 18px 0 8px;
+  }
+  .report-quick-wins-shell .section-number,
+  .report-quick-wins-shell .label-time,
+  .report-quick-wins-shell .ba-label {
+    color: rgba(0, 0, 0, 0.55);
+  }
+  .report-quick-wins-shell .section-title,
+  .report-quick-wins-shell .label-title,
+  .report-quick-wins-shell .qw-title {
+    color: #111318;
+  }
+  .report-quick-wins-shell .stage-shell {
+    min-height: 0;
+    padding: 0;
+  }
+  .report-quick-wins-shell .print-quick-wins-list {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-top: 12px;
+  }
+  .report-quick-wins-shell .print-quick-win-card {
+    break-inside: avoid;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 18px;
+    padding: 18px;
+    background: #fff;
+    color: #111318;
+  }
+  .report-quick-wins-shell .print-quick-win-card .qw-owner-chip,
+  .report-quick-wins-shell .print-quick-win-card .ba-cell {
+    background: #fff;
+    border-color: rgba(0, 0, 0, 0.08);
+    color: #111318;
+  }
+  .report-quick-wins-shell .print-quick-win-card .ba-text {
+    color: rgba(17, 19, 24, 0.82);
+  }
+}

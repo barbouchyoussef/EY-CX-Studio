@@ -1,0 +1,114 @@
+{
+  "company": "DEMO CX Telecom (fictional)",
+  "model": "gemini-3.5-flash",
+  "scope": "AI service smoke test, not a persisted or fully scored assessment",
+  "created_at": "2026-09-22T13:11:54.846186+00:00",
+  "question": "Pour commencer notre évaluation, penchons-nous sur la Voix du Client. Dans le secteur des télécoms, les interactions sont nombreuses. Comment collectez-vous habituellement les retours et avis de vos clients aujourd'hui ?",
+  "options": [
+    "Nous recueillons les retours de manière informelle ou ponctuelle, principalement lorsque les clients nous contactent directement pour nous faire part d'un problème.",
+    "Nous collectons régulièrement des avis via des enquêtes après certaines interactions clés, mais la démarche reste propre à chaque canal ou équipe.",
+    "Nous disposons d'un dispositif d'écoute systématique et centralisé sur l'ensemble du parcours client, nous permettant de suivre l'expérience en temps réel."
+  ],
+  "fictional_answer": "Chaque semaine, notre responsable CX analyse les reclamations du CRM et les enquetes de satisfaction apres appel. Les actions sont attribuees aux responsables dans un tableau de suivi, mais leur impact sur la satisfaction est rarement mesure.",
+  "coverage": {
+    "covered": [
+      1
+    ],
+    "maturity_level_by_id": {
+      "1": 3
+    },
+    "maturity_level_number_by_id": {
+      "1": 3
+    },
+    "confidence_by_id": {
+      "1": 0.95
+    },
+    "confidence": 0.95,
+    "evidence_by_id": {
+      "1": "Chaque semaine, notre responsable CX analyse les reclamations du CRM et les enquetes de satisfaction... Les actions sont attribuees aux responsables dans un tableau de suivi, mais leur impact sur la satisfaction est rarement mesure."
+    },
+    "rationale_by_id": {
+      "1": "The organization has a regular weekly feedback collection process led by a CX manager, with actions tracked in a table, but they do not systematically measure the outcomes of these actions, which perfectly aligns with Level 3."
+    },
+    "is_specific_and_actionable_by_id": {
+      "1": true
+    }
+  },
+  "recommendation": "Bien que votre responsable CX analyse chaque semaine les réclamations du CRM et les enquêtes après appel pour attribuer des actions dans un tableau de suivi, l'absence d'évaluation de leur impact vous empêche de valider l'efficacité réelle de ces interventions. Pour y remédier, vous devez enrichir ce processus en mesurant systématiquement l'évolution de la satisfaction client consécutive aux actions réalisées par les responsables désignés. Cette rigueur dans le suivi des résultats permettra de garantir que les corrections apportées contribuent directement et concrètement à améliorer la satisfaction.",
+  "synthesis_inputs_note": "60 percent and Developing are synthetic fixture values, not computed assessment scores.",
+  "synthesis": {
+    "executive_summary": "L'évaluation de la maturité de l'expérience client chez DEMO CX Telecom révèle un niveau global en cours de développement, caractérisé par un score de 60 %. L'organisation s'appuie sur des bases positives au sein de son axe le plus performant, la Voix du Client, ce qui témoigne de pratiques naissantes pour capter les retours des utilisateurs. Néanmoins, la cohérence globale reste perfectible en raison de limites persistantes dans l'axe de la Mesure, qui freinent la valorisation systématique de ces données.",
+    "priority_message": "La structuration de l'axe de la Mesure constitue l'étape essentielle pour transformer les retours collectés en indicateurs de performance exploitables."
+  },
+  "status": "passed",
+  "gemini_calls": [
+    {
+      "status": 200,
+      "usage": {
+        "promptTokenCount": 1723,
+        "candidatesTokenCount": 167,
+        "totalTokenCount": 2755,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 1723
+          }
+        ],
+        "thoughtsTokenCount": 865,
+        "serviceTier": "standard"
+      },
+      "output": "{\n  \"question\": \"Pour commencer notre évaluation, penchons-nous sur la Voix du Client. Dans le secteur des télécoms, les interactions sont nombreuses. Comment collectez-vous habituellement les retours et avis de vos clients aujourd'hui ?\",\n  \"options\": [\n    \"Nous recueillons les retours de manière informelle ou ponctuelle, principalement lorsque les clients nous contactent directement pour nous faire part d'un problème.\",\n    \"Nous collectons régulièrement des avis via des enquêtes après certaines interactions clés, mais la démarche reste propre à chaque canal ou équipe.\",\n    \"Nous disposons d'un dispositif d'écoute systématique et centralisé sur l'ensemble du parcours client, nous permettant de suivre l'expérience en temps réel.\"\n  ]\n}"
+    },
+    {
+      "status": 200,
+      "usage": {
+        "promptTokenCount": 2507,
+        "candidatesTokenCount": 166,
+        "totalTokenCount": 3102,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 2507
+          }
+        ],
+        "thoughtsTokenCount": 429,
+        "serviceTier": "standard"
+      },
+      "output": "{\n  \"covered_criteria\": [\n    {\n      \"criterion_id\": 1,\n      \"maturity_level_id\": 3,\n      \"confidence\": 0.95,\n      \"is_specific_and_actionable\": true,\n      \"evidence\": \"Chaque semaine, notre responsable CX analyse les reclamations du CRM et les enquetes de satisfaction... Les actions sont attribuees aux responsables dans un tableau de suivi, mais leur impact sur la satisfaction est rarement mesure.\",\n      \"rationale\": \"The organization has a regular weekly feedback collection process led by a CX manager, with actions tracked in a table, but they do not systematically measure the outcomes of these actions, which perfectly aligns with Level 3.\"\n    }\n  ]\n}"
+    },
+    {
+      "status": 200,
+      "usage": {
+        "promptTokenCount": 523,
+        "candidatesTokenCount": 117,
+        "totalTokenCount": 2139,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 523
+          }
+        ],
+        "thoughtsTokenCount": 1499,
+        "serviceTier": "standard"
+      },
+      "output": "Bien que votre responsable CX analyse chaque semaine les réclamations du CRM et les enquêtes après appel pour attribuer des actions dans un tableau de suivi, l'absence d'évaluation de leur impact vous empêche de valider l'efficacité réelle de ces interventions. Pour y remédier, vous devez enrichir ce processus en mesurant systématiquement l'évolution de la satisfaction client consécutive aux actions réalisées par les responsables désignés. Cette rigueur dans le suivi des résultats permettra de garantir que les corrections apportées contribuent directement et concrètement à améliorer la satisfaction."
+    },
+    {
+      "status": 200,
+      "usage": {
+        "promptTokenCount": 637,
+        "candidatesTokenCount": 167,
+        "totalTokenCount": 2407,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 637
+          }
+        ],
+        "thoughtsTokenCount": 1603,
+        "serviceTier": "standard"
+      },
+      "output": "{\n  \"executive_summary\": \"L'évaluation de la maturité de l'expérience client chez DEMO CX Telecom révèle un niveau global en cours de développement, caractérisé par un score de 60 %. L'organisation s'appuie sur des bases positives au sein de son axe le plus performant, la Voix du Client, ce qui témoigne de pratiques naissantes pour capter les retours des utilisateurs. Néanmoins, la cohérence globale reste perfectible en raison de limites persistantes dans l'axe de la Mesure, qui freinent la valorisation systématique de ces données.\",\n  \"priority_message\": \"La structuration de l'axe de la Mesure constitue l'étape essentielle pour transformer les retours collectés en indicateurs de performance exploitables.\"\n}"
+    }
+  ]
+}

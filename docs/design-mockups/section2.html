@@ -1,0 +1,1546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Orbit Section 2 + 3 Preview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    :root {
+      --bg-deep: #111318;
+      --bg-navy: #17315f;
+      --bg-violet: #4020cb;
+      --bg-lilac: #efcade;
+      --ink: #ffffff;
+      --ink-soft: rgba(255, 255, 255, 0.84);
+      --ink-muted: rgba(255, 255, 255, 0.58);
+      --line: rgba(255, 255, 255, 0.12);
+      --line-soft: rgba(255, 255, 255, 0.08);
+      --gold: #ffd447;
+      --gold-deep: #c8973f;
+      --cyan: #85eaff;
+      --cyan-deep: #00d4ff;
+      --violet: #9f93ff;
+      --violet-deep: #4d22df;
+      --emerald: #61f2ba;
+      --emerald-deep: #0ca678;
+      --rose: #ff8ba7;
+      --rose-deep: #d94871;
+      --glass: rgba(255, 255, 255, 0.06);
+      --shadow: 0 24px 72px rgba(0, 0, 0, 0.28);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+      font-family: "Inter", system-ui, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 76% 12%, rgba(239, 202, 222, 0.92), rgba(239, 202, 222, 0.16) 24%, transparent 44%),
+        radial-gradient(circle at 84% 82%, rgba(116, 38, 255, 0.56), transparent 28%),
+        linear-gradient(118deg, #121318 0%, #17315f 34%, #2a29a7 68%, #491fd8 100%);
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 18% 28%, rgba(255, 255, 255, 0.06), transparent 12%),
+        radial-gradient(circle at 36% 82%, rgba(255, 255, 255, 0.04), transparent 10%);
+      mix-blend-mode: screen;
+      opacity: 0.6;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    .preview-shell {
+      min-height: 100vh;
+      padding: 24px;
+      overflow: hidden;
+    }
+
+    .section {
+      position: relative;
+      width: min(1320px, 100%);
+      margin: 0 auto;
+      padding: 34px 36px 28px;
+      isolation: isolate;
+    }
+
+    .orbital-ring,
+    .orbital-ring-small,
+    .orbital-ring-left {
+      position: absolute;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.13);
+      pointer-events: none;
+    }
+
+    .orbital-ring {
+      top: -52px;
+      right: 22px;
+      width: 300px;
+      height: 300px;
+      opacity: 0.28;
+    }
+
+    .orbital-ring-small {
+      top: 10px;
+      right: 84px;
+      width: 180px;
+      height: 180px;
+      opacity: 0.18;
+    }
+
+    .orbital-ring-left {
+      left: -110px;
+      bottom: 140px;
+      width: 320px;
+      height: 320px;
+      opacity: 0.12;
+    }
+
+    .section-head {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .section-number {
+      font-family: "Geist Mono", monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .section-title {
+      margin: 0;
+      font-size: clamp(1.5rem, 3vw, 2.05rem);
+      line-height: 1.08;
+      letter-spacing: -0.04em;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .panel {
+      position: relative;
+      z-index: 2;
+      border-radius: 28px;
+      border: 1px solid var(--line-soft);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.03)),
+        rgba(7, 10, 20, 0.12);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+      overflow: hidden;
+    }
+
+    .panel-inner {
+      padding: 28px 28px 24px;
+    }
+
+    .track-label {
+      margin: 0 0 20px;
+      max-width: 72ch;
+      color: var(--ink-soft);
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+
+    .stepper-shell {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .stepper-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(56px, 1fr) minmax(0, 1fr) minmax(56px, 1fr) minmax(0, 1fr);
+      align-items: center;
+      gap: 0;
+      padding: 22px 22px 0;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.025);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      width: 100%;
+      margin: 0;
+    }
+
+    .step-wrap {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-width: 0;
+      max-width: none;
+    }
+
+    .step-button {
+      position: relative;
+      z-index: 2;
+      border: 0;
+      background: transparent;
+      color: inherit;
+      cursor: default;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      width: 132px;
+      min-width: 0;
+      padding: 0 4px 20px;
+      font: inherit;
+      pointer-events: none;
+    }
+
+    .step-badge {
+      width: 48px;
+      height: 48px;
+      display: grid;
+      place-items: center;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 1rem;
+      color: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.06);
+      transition: transform 220ms ease, box-shadow 220ms ease, background 220ms ease;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    }
+
+    .step-button.active .step-badge,
+    .step-button:hover .step-badge {
+      transform: translateY(-2px);
+    }
+
+    .step-button[data-tone="gold"].active .step-badge {
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-deep) 100%);
+      color: #111318;
+      box-shadow: 0 12px 26px rgba(200, 151, 63, 0.28);
+    }
+
+    .step-button[data-tone="cyan"].active .step-badge {
+      background: linear-gradient(135deg, var(--cyan) 0%, var(--cyan-deep) 100%);
+      color: #111318;
+      box-shadow: 0 12px 26px rgba(0, 212, 255, 0.24);
+    }
+
+    .step-button[data-tone="violet"].active .step-badge {
+      background: linear-gradient(135deg, #9f93ff 0%, var(--violet-deep) 100%);
+      color: #fff;
+      box-shadow: 0 12px 26px rgba(77, 34, 223, 0.26);
+    }
+
+    .step-labels {
+      text-align: center;
+      min-width: 0;
+    }
+
+    .step-name {
+      margin: 4px 0 0;
+      font-size: 1rem;
+      line-height: 1.1;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.92);
+    }
+
+    .connector {
+      position: relative;
+      top: 0;
+      align-self: start;
+      margin-top: 23px;
+      height: 2px;
+      width: 100%;
+      background: linear-gradient(90deg, rgba(255, 212, 71, 0.28), rgba(133, 234, 255, 0.22));
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .connector-fill {
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 0;
+      border-radius: inherit;
+      opacity: 0.95;
+      transition: width 320ms ease, background 320ms ease;
+    }
+
+    .content-shell {
+      position: relative;
+      min-height: 440px;
+      border-radius: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.015)),
+        rgba(9, 12, 23, 0.12);
+      overflow: hidden;
+    }
+
+    .content-stage {
+      display: none;
+      padding: 28px 28px 26px;
+      animation: fadeIn 260ms ease;
+    }
+
+    .content-stage.active {
+      display: block;
+    }
+
+    .stage-meta {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+      gap: 24px;
+      align-items: start;
+      margin-bottom: 22px;
+    }
+
+    .stage-summary {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .stage-heading {
+      margin: 0;
+      font-size: clamp(1.6rem, 2.8vw, 2.15rem);
+      line-height: 1.02;
+      letter-spacing: -0.04em;
+      font-weight: 700;
+    }
+
+    .chip-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      margin-bottom: 22px;
+    }
+
+    .comp-chip {
+      width: 100%;
+      min-height: 110px;
+      padding: 18px 18px 16px;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02)),
+        rgba(8, 11, 20, 0.14);
+      color: inherit;
+      cursor: pointer;
+      text-align: left;
+      transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .comp-chip:hover,
+    .comp-chip.active {
+      transform: translateY(-2px);
+      border-color: rgba(255, 255, 255, 0.18);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.03)),
+        rgba(8, 11, 20, 0.18);
+    }
+
+    .comp-chip.you {
+      border-color: rgba(255, 212, 71, 0.28);
+      background:
+        linear-gradient(180deg, rgba(255, 212, 71, 0.12), rgba(255, 255, 255, 0.03)),
+        rgba(8, 11, 20, 0.18);
+    }
+
+    .chip-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .chip-emoji {
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+
+    .chip-name {
+      margin: 0;
+      font-size: 1.12rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .chip-note {
+      margin: 6px 0 0;
+      color: rgba(255, 255, 255, 0.62);
+      font-size: 0.92rem;
+      line-height: 1.5;
+    }
+
+    .drawer {
+      border-radius: 22px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02)),
+        rgba(8, 11, 20, 0.16);
+      padding: 20px 22px 22px;
+      min-height: 176px;
+      backdrop-filter: blur(10px);
+    }
+
+    .drawer-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 14px;
+    }
+
+    .drawer-name {
+      margin: 0;
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+    }
+
+    .drawer-title {
+      margin: 0 0 12px;
+      color: rgba(255, 255, 255, 0.54);
+      font-family: "Geist Mono", monospace;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+    }
+
+    .practice-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .practice {
+      position: relative;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      color: rgba(255, 255, 255, 0.82);
+      font-size: 0.94rem;
+      line-height: 1.55;
+    }
+
+    .practice::before {
+      content: "";
+      width: 18px;
+      height: 18px;
+      margin-top: 1px;
+      flex: 0 0 18px;
+      border-radius: 999px;
+      background: rgba(133, 234, 255, 0.12);
+      border: 1px solid rgba(133, 234, 255, 0.26);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      position: relative;
+    }
+
+    .practice::after {
+      content: "";
+      position: absolute;
+      width: 8px;
+      height: 4px;
+      border-left: 2px solid var(--cyan);
+      border-bottom: 2px solid var(--cyan);
+      left: 5px;
+      top: 6px;
+      transform: rotate(-45deg);
+    }
+
+    .axis-tabs {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+
+    .axis-tab {
+      position: relative;
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: 22px;
+      padding: 18px 18px 16px;
+      text-align: left;
+      color: #fff;
+      cursor: pointer;
+      background: rgba(255, 255, 255, 0.035);
+      transition: transform 220ms ease, border-color 220ms ease, background 220ms ease, box-shadow 220ms ease;
+    }
+
+    .axis-tab:hover,
+    .axis-tab.active {
+      transform: translateY(-2px);
+      border-color: rgba(255, 255, 255, 0.18);
+      box-shadow: 0 18px 34px rgba(0, 0, 0, 0.18);
+    }
+
+    .axis-tab[data-axis="manage"].active {
+      background: linear-gradient(135deg, rgba(255, 212, 71, 0.2), rgba(200, 151, 63, 0.14));
+    }
+
+    .axis-tab[data-axis="analyze"].active {
+      background: linear-gradient(135deg, rgba(133, 234, 255, 0.2), rgba(0, 212, 255, 0.14));
+    }
+
+    .axis-tab[data-axis="improve"].active {
+      background: linear-gradient(135deg, rgba(159, 147, 255, 0.22), rgba(77, 34, 223, 0.16));
+    }
+
+    .axis-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+      font-family: "Geist Mono", monospace;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: rgba(255, 255, 255, 0.54);
+    }
+
+    .axis-name {
+      margin: 0;
+      font-size: 1.06rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .axis-mini {
+      margin: 6px 0 0;
+      color: rgba(255, 255, 255, 0.66);
+      font-size: 0.92rem;
+      line-height: 1.45;
+    }
+
+    .axis-score-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 16px;
+      gap: 16px;
+    }
+
+    .axis-score {
+      font-size: 1.8rem;
+      font-weight: 800;
+      letter-spacing: -0.05em;
+    }
+
+    .axis-band {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      padding: 7px 12px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .axis-panel {
+      display: none;
+      border-radius: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02)),
+        rgba(9, 12, 23, 0.14);
+      overflow: hidden;
+    }
+
+    .axis-panel.active {
+      display: block;
+      animation: fadeIn 220ms ease;
+    }
+
+    .axis-panel-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(220px, 0.75fr);
+      gap: 18px;
+      padding: 24px 24px 18px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .axis-panel-title {
+      margin: 0 0 10px;
+      font-size: clamp(1.4rem, 3vw, 1.9rem);
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+    }
+
+    .axis-panel-copy {
+      margin: 0;
+      color: var(--ink-soft);
+      line-height: 1.7;
+      max-width: 60ch;
+    }
+
+    .axis-stat-card {
+      align-self: start;
+      border-radius: 22px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.045);
+      padding: 18px;
+    }
+
+    .axis-stat-label {
+      font-family: "Geist Mono", monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.52);
+    }
+
+    .axis-stat-value {
+      margin: 8px 0 0;
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.05em;
+    }
+
+    .axis-stat-note {
+      margin: 10px 0 0;
+      color: rgba(255, 255, 255, 0.7);
+      line-height: 1.55;
+      font-size: 0.92rem;
+    }
+
+    .axis-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      padding: 22px 24px 24px;
+    }
+
+    .cap-col {
+      border-radius: 24px;
+      padding: 22px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      min-height: 100%;
+    }
+
+    .cap-col.working {
+      background: linear-gradient(180deg, rgba(97, 242, 186, 0.1), rgba(12, 166, 120, 0.05));
+    }
+
+    .cap-col.missing {
+      background: linear-gradient(180deg, rgba(255, 139, 167, 0.1), rgba(217, 72, 113, 0.05));
+    }
+
+    .cap-col-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .cap-col-title {
+      margin: 0;
+      font-size: 1.05rem;
+      font-weight: 700;
+    }
+
+    .cap-title-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .status-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.92rem;
+      font-weight: 800;
+      flex: 0 0 auto;
+    }
+
+    .status-icon.working {
+      background: rgba(97, 242, 186, 0.16);
+      color: #baf7df;
+      border: 1px solid rgba(97, 242, 186, 0.26);
+    }
+
+    .status-icon.missing {
+      background: rgba(255, 139, 167, 0.16);
+      color: #ffc0d0;
+      border: 1px solid rgba(255, 139, 167, 0.26);
+    }
+
+    .cap-col-sub {
+      margin: 8px 0 0;
+      color: rgba(255, 255, 255, 0.68);
+      font-size: 0.93rem;
+      line-height: 1.55;
+    }
+
+    .cap-count {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 34px;
+      height: 34px;
+      padding: 0 10px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.86rem;
+      background: rgba(255, 255, 255, 0.12);
+      color: #fff;
+    }
+
+    .cap-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .cap-pill {
+      width: 100%;
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: 20px;
+      padding: 16px 16px 15px;
+      text-align: left;
+      color: inherit;
+      cursor: pointer;
+      background: rgba(8, 10, 19, 0.26);
+      transition: transform 220ms ease, border-color 220ms ease, background 220ms ease, box-shadow 220ms ease;
+    }
+
+    .cap-pill:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255, 255, 255, 0.18);
+      background: rgba(255, 255, 255, 0.06);
+      box-shadow: 0 16px 28px rgba(0, 0, 0, 0.14);
+    }
+
+    .cap-pill-top {
+      display: flex;
+      align-items: start;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .cap-pill-name {
+      margin: 0;
+      font-size: 0.98rem;
+      line-height: 1.35;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .cap-tag {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .cap-tag.positive {
+      color: #baf7df;
+    }
+
+    .cap-tag.negative {
+      color: #ffc0d0;
+    }
+
+    .cap-pill-summary {
+      margin: 12px 0 0;
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.92rem;
+      line-height: 1.58;
+    }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 30;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: rgba(5, 8, 17, 0.62);
+      backdrop-filter: blur(10px);
+    }
+
+    .modal.open {
+      display: flex;
+    }
+
+    .modal-card {
+      width: min(420px, 100%);
+      max-height: min(52vh, 420px);
+      overflow: auto;
+      border-radius: 22px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03)),
+        rgba(10, 13, 25, 0.95);
+      box-shadow: 0 24px 56px rgba(0, 0, 0, 0.28);
+    }
+
+    .modal-head {
+      display: flex;
+      align-items: start;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 18px 18px 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    }
+
+    .modal-overline {
+      font-family: "Geist Mono", monospace;
+      font-size: 0.74rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.48);
+    }
+
+    .modal-title {
+      margin: 8px 0 0;
+      font-size: clamp(1.15rem, 3vw, 1.35rem);
+      line-height: 1.18;
+      letter-spacing: -0.04em;
+    }
+
+    .close-btn {
+      border: 0;
+      border-radius: 999px;
+      width: 28px;
+      height: 28px;
+      color: rgba(255, 255, 255, 0.82);
+      cursor: pointer;
+      font-size: 0.76rem;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.06);
+      transition: background 180ms ease, transform 180ms ease, color 180ms ease;
+    }
+
+    .close-btn:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.12);
+      transform: translateY(-1px);
+    }
+
+    .modal-grid {
+      padding: 14px 18px 18px;
+    }
+
+    .evidence-card {
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.035);
+      padding: 14px;
+    }
+
+    .evidence-title {
+      margin: 0 0 10px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.78);
+    }
+
+    .evidence-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .evidence-item {
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      background: rgba(255, 255, 255, 0.025);
+      padding: 12px;
+    }
+
+    .evidence-quote {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.86);
+      line-height: 1.55;
+      font-size: 0.9rem;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 1080px) {
+      .stage-meta,
+      .axis-tabs,
+      .axis-grid,
+      .axis-panel-head {
+        grid-template-columns: 1fr;
+      }
+
+      .chip-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 760px) {
+      .preview-shell {
+        padding: 14px;
+      }
+
+      .section {
+        padding: 24px 16px 20px;
+      }
+
+      .section-head {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .panel-inner {
+        padding: 20px 18px 18px;
+      }
+
+      .stepper-head {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 14px;
+        padding: 18px 18px 0;
+      }
+
+      .step-wrap {
+        width: 100%;
+        padding-left: 0;
+        padding-right: 0;
+        justify-content: center !important;
+      }
+
+      .connector {
+        position: relative;
+        top: -24px;
+        left: auto;
+        right: auto;
+        margin: 0 16px;
+        flex: 1 1 auto;
+      }
+
+      .content-stage {
+        padding: 22px 18px 20px;
+      }
+
+      .chip-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .drawer-head {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .modal {
+        padding: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="preview-shell">
+    <section class="section">
+      <div class="orbital-ring" aria-hidden="true"></div>
+      <div class="orbital-ring-small" aria-hidden="true"></div>
+      <div class="orbital-ring-left" aria-hidden="true"></div>
+
+      <div class="section-head">
+        <span class="section-number">02</span>
+        <h2 class="section-title">Where You Stand — Competitive Landscape</h2>
+      </div>
+
+        <div class="panel-inner">
+          
+
+          <div class="stepper-shell">
+            <div class="stepper-head">
+              <div class="step-wrap">
+                <button class="step-button active" type="button" data-step="1" data-tone="gold" aria-disabled="true" tabindex="-1">
+                  <span class="step-badge">1</span>
+                  <span class="step-labels">
+                    <span class="step-name">Basic</span>
+                  </span>
+                </button>
+              </div>
+              <div class="connector"><div class="connector-fill" data-connector="1"></div></div>
+
+              <div class="step-wrap">
+                <button class="step-button" type="button" data-step="2" data-tone="cyan" aria-disabled="true" tabindex="-1">
+                  <span class="step-badge">2</span>
+                  <span class="step-labels">
+                    <span class="step-name">Established</span>
+                  </span>
+                </button>
+              </div>
+              <div class="connector"><div class="connector-fill" data-connector="2"></div></div>
+
+              <div class="step-wrap">
+                <button class="step-button" type="button" data-step="3" data-tone="violet" aria-disabled="true" tabindex="-1">
+                  <span class="step-badge">3</span>
+                  <span class="step-labels">
+                    <span class="step-name">Advanced</span>
+                  </span>
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+    </section>
+
+    <section class="section">
+      <div class="orbital-ring"></div>
+      <div class="orbital-ring-small"></div>
+      <div class="orbital-ring-left"></div>
+
+      <div class="section-head">
+        <span class="section-number">03</span>
+        <h1 class="section-title">What's Working &amp; What's Missing</h1>
+      </div>
+
+        <div class="panel">
+        <div class="panel-inner">
+          <div class="axis-tabs" id="axis-tabs"></div>
+          <div id="axis-panels"></div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="modal" id="evidence-modal" aria-hidden="true">
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <div class="modal-head">
+        <div>
+          <div class="modal-overline" id="modal-overline">Capability evidence</div>
+          <h2 class="modal-title" id="modal-title"></h2>
+        </div>
+        <button class="close-btn" id="close-modal" type="button" aria-label="Close evidence modal">X</button>
+      </div>
+      <div class="modal-grid">
+        <div class="evidence-card">
+          <h3 class="evidence-title">Supporting evidence</h3>
+          <div class="evidence-list" id="modal-evidence-list"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const stageData = {
+      1: {
+        drawerDefault: "local-operators",
+        competitors: {
+          "local-operators": {
+            name: "Local Operators",
+            why: [
+              "Customer feedback is heard informally but not managed in one operating rhythm.",
+              "Ownership is reactive and tied to individuals rather than a shared CX model.",
+              "Pain points are fixed case by case instead of being tracked and prioritized structurally."
+            ]
+          },
+          "traditional-agency": {
+            name: "Traditional Agency",
+            why: [
+              "Service delivery depends on people more than system design.",
+              "Journey visibility is weak and handoffs are not standardized.",
+              "Improvement happens only after visible complaints or friction spikes."
+            ]
+          },
+          "legacy-dmc": {
+            name: "Legacy DMC",
+            why: [
+              "Operational heritage is strong, but CX is not yet governed as a business capability.",
+              "Signals exist in silos and do not translate cleanly into prioritization.",
+              "Consistency across channels and teams remains fragile."
+            ]
+          }
+        }
+      },
+      2: {
+        drawerDefault: "you",
+        competitors: {
+          "you": {
+            name: "Souvenirs Voyages",
+            why: [
+              "There is clear ownership culture and a visible commitment to customer experience.",
+              "Feedback and improvement work exist, but measurement and closure are not yet fully systematic.",
+              "The next leap comes from turning strong intent into a more repeatable cross-team operating model."
+            ]
+          },
+          "regional-competitors": {
+            name: "Regional Competitors",
+            why: [
+              "Basic CRM and service routines are in place, but action is still inconsistent between channels.",
+              "Improvement decisions are made, yet not always tied to a shared prioritization model.",
+              "Customer experience is improving, but not yet predictable as a strategic advantage."
+            ]
+          },
+          "growth-travel-brand": {
+            name: "Growth Travel Brand",
+            why: [
+              "The brand reacts faster to customer issues and iterates more often.",
+              "Ownership exists, but governance is still uneven across teams.",
+              "Scaling pressure is exposing gaps in standardization and measurement."
+            ]
+          }
+        }
+      },
+      3: {
+        drawerDefault: "intrepid",
+        competitors: {
+          "intrepid": {
+            name: "Intrepid",
+            why: [
+              "Customer insight is translated into structured priorities across the business.",
+              "Journey visibility and issue resolution are managed more consistently at scale.",
+              "CX maturity supports growth, trust, and repeatability rather than sitting beside them."
+            ]
+          },
+          "g-adventures": {
+            name: "G Adventures",
+            why: [
+              "Cross-functional teams operate with stronger clarity on the full customer journey.",
+              "Pain points are more likely to be tracked, assigned, and closed with discipline.",
+              "The operating model is less dependent on heroic individuals and more embedded in the system."
+            ]
+          },
+          "experience-platform": {
+            name: "Experience Platform",
+            why: [
+              "Digital orchestration and service design are connected more tightly.",
+              "Signals are turned into prioritization decisions faster and with better evidence quality.",
+              "Execution shows stronger consistency across touchpoints and stakeholders."
+            ]
+          }
+        }
+      }
+    };
+
+    let currentStep = 2;
+    let selectedCompetitor = stageData[currentStep].drawerDefault;
+
+    const stepButtons = [...document.querySelectorAll(".step-button")];
+    const stagePanels = [...document.querySelectorAll(".content-stage")];
+    const connectorFills = [...document.querySelectorAll(".connector-fill")];
+
+    function updateConnectors(step) {
+      connectorFills.forEach((fill, index) => {
+        const completed = step > index + 1;
+        fill.style.width = completed ? "100%" : "0%";
+        fill.style.background =
+          step === 1 ? "linear-gradient(90deg, #ffd447, #c8973f)" :
+          step === 2 ? "linear-gradient(90deg, #85eaff, #00d4ff)" :
+          "linear-gradient(90deg, #9f93ff, #4d22df)";
+      });
+    }
+
+    function renderDrawer(step, competitorKey) {
+      const drawer = document.querySelector(`[data-drawer="${step}"]`);
+      const competitor = stageData[step].competitors[competitorKey];
+      if (!drawer || !competitor) return;
+
+      drawer.innerHTML = `
+        <div class="drawer-head">
+          <h4 class="drawer-name">${competitor.name}</h4>
+        </div>
+        <p class="drawer-title">Why they're at this stage</p>
+        <div class="practice-list">
+          ${competitor.why.map(item => `<div class="practice">${item}</div>`).join("")}
+        </div>
+      `;
+    }
+
+    function updateChips(step, competitorKey) {
+      document.querySelectorAll(`.comp-chip[data-stage-id="${step}"]`).forEach((chip) => {
+        chip.classList.toggle("active", chip.dataset.competitor === competitorKey);
+      });
+    }
+
+    function goToStep(step) {
+      currentStep = Math.max(1, Math.min(3, step));
+      selectedCompetitor = stageData[currentStep].drawerDefault;
+
+      stepButtons.forEach((button) => {
+        button.classList.toggle("active", Number(button.dataset.step) === currentStep);
+      });
+
+      stagePanels.forEach((panel) => {
+        panel.classList.toggle("active", Number(panel.dataset.stage) === currentStep);
+      });
+
+      updateConnectors(currentStep);
+      updateChips(currentStep, selectedCompetitor);
+      renderDrawer(currentStep, selectedCompetitor);
+    }
+
+    document.querySelectorAll(".comp-chip").forEach((chip) => {
+      chip.addEventListener("click", () => {
+        const step = Number(chip.dataset.stageId);
+        const competitorKey = chip.dataset.competitor;
+        if (!competitorKey) return;
+        selectedCompetitor = competitorKey;
+        updateChips(step, competitorKey);
+        renderDrawer(step, competitorKey);
+      });
+    });
+
+    goToStep(currentStep);
+
+    const maturityLevelMap = {
+      Basic: 1,
+      Established: 2,
+      Advanced: 3
+    };
+
+    const reportData = [
+      {
+        axis: "manage",
+        label: "Manage",
+        tone: "gold",
+        score: 63,
+        band: "Established",
+        subtitle: "Ownership is visible, but listening discipline is still partial.",
+        intro:
+          "Manage is the strongest axis today. The team shows real accountability and can react to issues, but the operating model is still uneven across journeys and feedback channels.",
+        statNote:
+          "Strongest axis in the current simulated report. The maturity comes mostly from visible ownership and service recovery behavior, not yet from fully systematized listening.",
+        working: [
+          {
+            capability: "Support/ticketing process and ownership",
+            band: "Established",
+            summary: "Issues do not disappear into inboxes. There is visible ownership when a customer problem becomes urgent.",
+            evidence: [
+              {
+                source: "Interview note",
+                quote: "When a traveler escalates a booking problem, someone specific takes the case and follows it through until the client gets an answer."
+              }
+            ]
+          },
+          {
+            capability: "Governance: roles, rituals, and accountability for CX outcomes",
+            band: "Established",
+            summary: "Customer experience is treated seriously by leadership and there is a visible owner pushing it forward.",
+            evidence: [
+              {
+                source: "Consultation synthesis",
+                quote: "There is clear ownership culture and a visible commitment to customer experience."
+              }
+            ]
+          }
+        ],
+        missing: [
+          {
+            capability: "Feedback collection channels and cadence",
+            band: "Basic",
+            summary: "Feedback is still heard more informally than managed through one shared weekly rhythm.",
+            evidence: [
+              {
+                source: "Assessment rationale",
+                quote: "Customer feedback is heard informally but not managed in one operating rhythm."
+              }
+            ]
+          },
+          {
+            capability: "Key customer journeys documented and monitored",
+            band: "Basic",
+            summary: "Important journeys are understood operationally, but they are not yet documented as a shared management artifact.",
+            evidence: [
+              {
+                source: "Journey note",
+                quote: "The business knows where friction appears, but there is no living journey view that teams review together."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        axis: "analyze",
+        label: "Analyze",
+        tone: "cyan",
+        score: 36,
+        band: "Basic",
+        subtitle: "Signals exist, but measurement is not yet turning into shared intelligence.",
+        intro:
+          "Analyze is currently the weakest layer in the evidence chain. The team has operational intuition, but not enough structured measurement and diagnosis to make the next decisions easy.",
+        statNote:
+          "This is where the report shifts from anecdotal knowledge to repeatable intelligence. Right now, the business still leans too much on judgement and case-by-case interpretation.",
+        working: [
+          {
+            capability: "Segmentation by customer type or behavior for insights",
+            band: "Basic",
+            summary: "Some customer differences are recognized in practice, especially by trip profile and client expectation level.",
+            evidence: [
+              {
+                source: "Assessment rationale",
+                quote: "Segmentation exists informally in decision conversations, but not yet as a consistent analysis layer."
+              }
+            ]
+          }
+        ],
+        missing: [
+          {
+            capability: "Customer experience KPIs measured and reviewed",
+            band: "Basic",
+            summary: "There is no disciplined CX score system yet, so improvement remains hard to prove and hard to prioritize objectively.",
+            evidence: [
+              {
+                source: "Observed gap",
+                quote: "The team can point to actions taken, but not to a recurring score review that shows whether service outcomes improved."
+              }
+            ]
+          },
+          {
+            capability: "Root cause analysis on top issues",
+            band: "Basic",
+            summary: "Pain points are often fixed at the symptom level instead of being diagnosed through a repeatable root-cause method.",
+            evidence: [
+              {
+                source: "Assessment rationale",
+                quote: "Improvement decisions are made, yet not always tied to a shared prioritization model or a formal root-cause step."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        axis: "improve",
+        label: "Improve",
+        tone: "violet",
+        score: 41,
+        band: "Basic",
+        subtitle: "Intent is strong, but follow-through is not yet managed as one repeatable loop.",
+        intro:
+          "Improve shows genuine customer-first energy. The team cares, acts, and adapts, but the execution model still depends too much on people pushing manually instead of one shared improvement system.",
+        statNote:
+          "This axis is where strong culture should become repeatable delivery. Today the willingness is there, but the operating cadence is still fragile.",
+        working: [
+          {
+            capability: "Teams trained and enabled to deliver consistent CX",
+            band: "Established",
+            summary: "The service mindset is real. People care about resolving friction and protecting the customer relationship.",
+            evidence: [
+              {
+                source: "Consultation synthesis",
+                quote: "The team genuinely cares, and the customer-first mindset is already part of the culture."
+              }
+            ]
+          }
+        ],
+        missing: [
+          {
+            capability: "Continuous improvement loop with prioritization and tracking",
+            band: "Basic",
+            summary: "The business improves reactively, but it does not yet run one shared backlog with owners, priorities, and closure evidence.",
+            evidence: [
+              {
+                source: "Assessment rationale",
+                quote: "Improvement happens only after visible complaints or friction spikes."
+              }
+            ]
+          },
+          {
+            capability: "Governance: roles, rituals, and accountability for CX outcomes",
+            band: "Basic",
+            summary: "Ownership exists, but it still depends on individual push rather than a cross-functional review and accountability rhythm.",
+            evidence: [
+              {
+                source: "Observed gap",
+                quote: "CX accountability is visible at the owner level, but not yet embedded in a wider operating ritual with tracked actions."
+              }
+            ]
+          }
+        ]
+      }
+    ];
+
+    const tabsRoot = document.getElementById("axis-tabs");
+    const panelsRoot = document.getElementById("axis-panels");
+    const modal = document.getElementById("evidence-modal");
+    const closeModalButton = document.getElementById("close-modal");
+
+    function renderTabs() {
+      tabsRoot.innerHTML = reportData.map((item, index) => `
+        <button
+          class="axis-tab ${index === 0 ? "active" : ""}"
+          data-axis="${item.axis}"
+          type="button"
+        >
+          <div class="axis-kicker">Axis ${String(index + 1).padStart(2, "0")}</div>
+          <h2 class="axis-name">${item.label}</h2>
+          <p class="axis-mini">${item.subtitle}</p>
+          <div class="axis-score-row">
+            <div class="axis-score">${maturityLevelMap[item.band]}/3</div>
+            <div class="axis-band">${item.band}</div>
+          </div>
+        </button>
+      `).join("");
+    }
+
+    function capabilityMarkup(item, status, axisLabel) {
+      return `
+        <button
+          class="cap-pill"
+          type="button"
+          data-capability='${JSON.stringify(item).replace(/'/g, "&#39;")}'
+          data-status="${status}"
+          data-axis-label="${axisLabel}"
+        >
+          <div class="cap-pill-top">
+            <p class="cap-pill-name">${item.capability}</p>
+            <span class="cap-tag ${status === "working" ? "positive" : "negative"}">${item.band}</span>
+          </div>
+          <p class="cap-pill-summary">${item.summary}</p>
+        </button>
+      `;
+    }
+
+    function renderPanels() {
+      panelsRoot.innerHTML = reportData.map((item, index) => `
+        <section class="axis-panel ${index === 0 ? "active" : ""}" data-panel="${item.axis}">
+          <div class="axis-panel-head">
+            <div>
+              <h3 class="axis-panel-title">${item.label}: what's real today</h3>
+              <p class="axis-panel-copy">${item.intro}</p>
+            </div>
+          </div>
+
+          <div class="axis-grid">
+            <div class="cap-col working">
+              <div class="cap-col-head">
+                <div>
+                  <div class="cap-title-row">
+                    <span class="status-icon working" aria-hidden="true">&#10003;</span>
+                    <h4 class="cap-col-title">Working</h4>
+                  </div>
+                  <p class="cap-col-sub">Capabilities already showing credible operating evidence.</p>
+                </div>
+                <div class="cap-count">${item.working.length}</div>
+              </div>
+              <div class="cap-list">
+                ${item.working.map((cap) => capabilityMarkup(cap, "working", item.label)).join("")}
+              </div>
+            </div>
+
+            <div class="cap-col missing">
+              <div class="cap-col-head">
+                <div>
+                  <div class="cap-title-row">
+                    <span class="status-icon missing" aria-hidden="true">!</span>
+                    <h4 class="cap-col-title">Missing</h4>
+                  </div>
+                  <p class="cap-col-sub">Capabilities that still lack enough evidence to feel systematic.</p>
+                </div>
+                <div class="cap-count">${item.missing.length}</div>
+              </div>
+              <div class="cap-list">
+                ${item.missing.map((cap) => capabilityMarkup(cap, "missing", item.label)).join("")}
+              </div>
+            </div>
+          </div>
+        </section>
+      `).join("");
+    }
+
+    function activateAxis(axis) {
+      document.querySelectorAll(".axis-tab").forEach((tab) => {
+        tab.classList.toggle("active", tab.dataset.axis === axis);
+      });
+
+      document.querySelectorAll(".axis-panel").forEach((panel) => {
+        panel.classList.toggle("active", panel.dataset.panel === axis);
+      });
+    }
+
+    function openEvidenceModal(capability, status, axisLabel) {
+      const title = document.getElementById("modal-title");
+      const overline = document.getElementById("modal-overline");
+      const evidenceList = document.getElementById("modal-evidence-list");
+
+      overline.textContent = `${axisLabel} axis | ${status === "working" ? "Working" : "Missing"}`;
+      title.textContent = capability.capability;
+
+      const evidenceSentence = capability.evidence[0]?.quote || capability.summary;
+      evidenceList.innerHTML = `
+        <div class="evidence-item">
+          <p class="evidence-quote">${evidenceSentence}</p>
+        </div>
+      `;
+
+      modal.classList.add("open");
+      modal.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeEvidenceModal() {
+      modal.classList.remove("open");
+      modal.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+    }
+
+    renderTabs();
+    renderPanels();
+
+    tabsRoot.addEventListener("click", (event) => {
+      const button = event.target.closest(".axis-tab");
+      if (!button) return;
+      activateAxis(button.dataset.axis);
+    });
+
+    panelsRoot.addEventListener("click", (event) => {
+      const button = event.target.closest(".cap-pill");
+      if (!button) return;
+      const capability = JSON.parse(button.dataset.capability.replace(/&#39;/g, "'"));
+      openEvidenceModal(capability, button.dataset.status, button.dataset.axisLabel);
+    });
+
+    closeModalButton.addEventListener("click", closeEvidenceModal);
+
+    modal.addEventListener("click", (event) => {
+      if (event.target === modal) closeEvidenceModal();
+    });
+
+    window.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && modal.classList.contains("open")) {
+        closeEvidenceModal();
+      }
+    });
+  </script>
+</body>
+</html>

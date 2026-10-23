@@ -1,0 +1,68 @@
+fastapi==0.111.1
+uvicorn[standard]==0.30.3
+SQLAlchemy==2.0.31
+asyncpg==0.29.0
+psycopg2-binary==2.9.9
+python-dotenv==1.0.1
+pydantic==2.8.2
+# 0.28+ is required by docling (docling-slim[standard] needs httpx>=0.28) and is what the
+# development environment has always run; the old 0.27.0 pin was stale.
+httpx==0.28.1
+# Auth foundation: password hashing (bcrypt, used directly -- passlib is unmaintained and
+# breaks on bcrypt 4.x), JWT access tokens (PyJWT, with explicit algorithm pinning on decode),
+# and EmailStr validation for Pydantic request schemas.
+bcrypt==4.2.1
+PyJWT==2.10.1
+email-validator==2.2.0
+# Async SMTP client for transactional mail (invitations, password-reset links). The app has
+# no other mail transport; this sends real email to the user's address from a dedicated mailbox.
+aiosmtplib==3.0.2
+Pillow==11.0.0
+playwright==1.49.1
+openpyxl==3.1.5
+python-multipart==0.0.32
+# Issue Log Excel export. `app/services/issue_log/export.py` imports this at module level and the
+# issue-log router imports that module at import time, so a missing xlsxwriter crashes the app on
+# boot -- not just the export endpoint. It was only ever present locally, pulled in by a manually
+# installed python-pptx that nothing in this file declares.
+XlsxWriter==3.2.9
+# LLM observability. Imported lazily inside a try/except, so its absence is survivable -- but the
+# deployment sets LANGFUSE_* keys, and without the package every trace was silently dropped.
+langfuse==2.60.10
+# ── Document processing + embeddings ────────────────────────────────────────────────────────
+# These share one torch install, which is by far the largest thing in the image. The CPU-only
+# wheel index below matters: the default PyPI wheel for Linux bundles the CUDA runtime (~2.5 GB
+# of NVIDIA libraries) that a server with no GPU can never use. Pinning the CPU build cuts the
+# image by roughly 2 GB and shortens every cold start.
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch==2.13.0
+torchvision==0.28.0
+
+# Imported at module scope by rag/embeddings.py and rag/store.py, so this is a BOOT dependency:
+# create_app fails without it. It was present only transitively (torch and friends), which is the
+# same undeclared-import shape as XlsxWriter and pypdfium2 above and below.
+numpy==2.5.1
+
+# Docling converts PDF/DOCX/PPTX/XLSX/images into a structured document. Without it the desk
+# research module can only read digital PDFs (the native text-layer path) and every Office or
+# scanned file fails at conversion.
+docling==2.115.0
+
+# The native text-layer path. `extractor.py` imports pypdfium2 directly in six places to read a
+# digital PDF's text without rendering it -- measured on a 19-page Arabic report as ~1400x faster
+# than the full pipeline, and extracting 7x more of the text. Nothing here declared it: it arrived
+# only as an extra of docling-slim, so a change to how docling is installed would remove it and
+# take the fast path with it. Pinned explicitly for the same reason XlsxWriter is, above.
+pypdfium2==5.12.1
+
+# Multilingual OCR (Arabic, French, English) for scanned documents, used by docling's OCR stage.
+easyocr==1.7.2
+
+# The PPTX native-read rescue pass. extractor.py imports it lazily inside a try, so its absence
+# does not crash -- slide decks just silently lose the fallback and rely on docling alone. The
+# XlsxWriter comment above already names this package as the one that was never declared.
+python-pptx==1.0.2
+
+# RAG chatbot: multilingual embeddings for semantic retrieval, on the torch installed above.
+# Optional -- without it the chatbot falls back to lexical retrieval.
+sentence-transformers==3.3.1

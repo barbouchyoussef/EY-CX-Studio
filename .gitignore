@@ -1,0 +1,143 @@
+# Dependencies
+node_modules/
+frontend/node_modules/
+.v/
+.venv*/
+venv/
+env/
+ENV/
+backend/.venv/
+backend/venv/
+backend/env/
+backend/.env
+# Build and Output
+dist/
+dist-ssr/
+frontend/dist/
+build/
+develop-eggs/
+eggs/
+.eggs/
+/lib/
+/lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+deploy.env
+# Python Bytecode and Caches
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.pytest_cache/
+.coverage
+htmlcov/
+.nyc_output/
+/coverage/
+.eslintcache
+.stylelintcache
+*.tsbuildinfo
+
+# Environment and Secrets
+.env
+.env.*
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.env
+backend/.env
+frontend/.env
+# `*.env` matches `deploy.env` but NOT `deploy.env.bak` / `deploy.env.bak2`, which hold the same
+# live production keys (Supabase service key, JWT secret, SMTP app password, provider tokens).
+# Both were untracked and stageable by `git add -A`. Cover every suffixed variant.
+deploy.env*
+*.env.bak*
+
+# Client source data and deliverables: confidential, and large binaries besides. Matched by
+# extension, not by name, because the filenames themselves carry the client's name. Anchored to
+# the repo root so this cannot match a fixture or template inside the source tree (the one
+# tracked workbook, backend/app/static/templates/, is unaffected).
+/*.xlsx
+/*.xlsb
+/*.xls
+# The filled PRD carries the production address and the full internal architecture.
+/*.docx
+*.local
+
+# IDEs, Editors, and Workspace configs
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+
+# OS System Files
+.DS_Store
+.DS_Store?
+._*
+Thumbs.db
+ehthumbs.db
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Generated runtime data (per-session / report / project / chat stores) — never source
+scraped_data/
+backend/scraped_data/
+desk_research_data/
+backend/desk_research_data/
+rag_data/
+backend/rag_data/
+projects_data/
+backend/projects_data/
+interview_chat_data/
+backend/interview_chat_data/
+
+# Local sample inputs / scratch (not needed for the app to run)
+scratch/
+backend/scratch/
+frontend/scratch/
+
+# Keep env templates tracked (they must not be caught by the .env rules above)
+!.env.example
+!backend/.env.example
+!frontend/.env.example
+
+# Stray local files at repo root (screenshots, sample/client PDFs) — never source
+/*.png
+/*.jpg
+/*.jpeg
+/*.pdf
+
+# Local test outputs (generated reports on real client data) — never source
+test_outputs/
+
+# Internship report (LaTeX) -- kept out of the code repo.
+# Leading slash anchors this to the repo root. Unanchored, `report/` also matched
+# frontend/src/components/report/, and Tailwind v4 reads .gitignore to decide what to scan --
+# so every utility class in those components silently stopped compiling and the assessment
+# report rendered with unsized decorative images covering the page.
+/report/
+
+# Working notes kept locally: scratchpads from building the project, not documentation of
+# it. Listed by name, so a new note at the root has to be added here to stay untracked.
+/CONTEXT.md
+/COSTS.md
+/HANDOFF_NOTES.md
+/TECHNICAL.md

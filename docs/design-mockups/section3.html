@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Orbit Section 3 Leaders Preview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    :root {
+      --bg-deep: #111318;
+      --bg-navy: #17315f;
+      --bg-violet: #4020cb;
+      --bg-lilac: #efcade;
+      --ink: #ffffff;
+      --ink-soft: rgba(255, 255, 255, 0.84);
+      --line-soft: rgba(255, 255, 255, 0.08);
+      --cyan: #85eaff;
+      --shadow: 0 24px 72px rgba(0, 0, 0, 0.28);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+      font-family: "Inter", system-ui, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 76% 12%, rgba(239, 202, 222, 0.92), rgba(239, 202, 222, 0.16) 24%, transparent 44%),
+        radial-gradient(circle at 84% 82%, rgba(116, 38, 255, 0.56), transparent 28%),
+        linear-gradient(118deg, #121318 0%, #17315f 34%, #2a29a7 68%, #491fd8 100%);
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 18% 28%, rgba(255, 255, 255, 0.06), transparent 12%),
+        radial-gradient(circle at 36% 82%, rgba(255, 255, 255, 0.04), transparent 10%);
+      mix-blend-mode: screen;
+      opacity: 0.6;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    .preview-shell {
+      min-height: 100vh;
+      padding: 24px;
+    }
+
+    .section {
+      position: relative;
+      width: min(1320px, 100%);
+      margin: 0 auto;
+      padding: 34px 36px 28px;
+      isolation: isolate;
+    }
+
+    .orbital-ring,
+    .orbital-ring-small,
+    .orbital-ring-left {
+      position: absolute;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.13);
+      pointer-events: none;
+    }
+
+    .orbital-ring {
+      top: -52px;
+      right: 22px;
+      width: 300px;
+      height: 300px;
+      opacity: 0.28;
+    }
+
+    .orbital-ring-small {
+      top: 10px;
+      right: 84px;
+      width: 180px;
+      height: 180px;
+      opacity: 0.18;
+    }
+
+    .orbital-ring-left {
+      left: -110px;
+      bottom: 140px;
+      width: 320px;
+      height: 320px;
+      opacity: 0.12;
+    }
+
+    .section-head {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .section-number {
+      font-family: "Geist Mono", monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .section-title {
+      margin: 0;
+      font-size: clamp(1.5rem, 3vw, 2.05rem);
+      line-height: 1.08;
+      letter-spacing: -0.04em;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .panel {
+      position: relative;
+      z-index: 2;
+      border-radius: 28px;
+      border: 1px solid var(--line-soft);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.03)),
+        rgba(7, 10, 20, 0.12);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+      overflow: hidden;
+    }
+
+    .panel-inner {
+      padding: 28px 28px 24px;
+    }
+
+    .content-shell {
+      position: relative;
+      min-height: 440px;
+      border-radius: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.015)),
+        rgba(9, 12, 23, 0.12);
+      overflow: hidden;
+    }
+
+    .content-stage {
+      padding: 28px 28px 26px;
+      animation: fadeIn 260ms ease;
+    }
+
+    .stage-meta {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr);
+      gap: 24px;
+      align-items: start;
+      margin-bottom: 22px;
+    }
+
+    .stage-summary {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .stage-heading {
+      margin: 0;
+      font-size: clamp(1.6rem, 2.8vw, 2.15rem);
+      line-height: 1.02;
+      letter-spacing: -0.04em;
+      font-weight: 700;
+    }
+
+    .chip-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      margin-bottom: 22px;
+    }
+
+    .comp-chip {
+      width: 100%;
+      min-height: 110px;
+      padding: 18px 18px 16px;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02)),
+        rgba(8, 11, 20, 0.14);
+      color: inherit;
+      cursor: pointer;
+      text-align: left;
+      transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .comp-chip:hover,
+    .comp-chip.active {
+      transform: translateY(-2px);
+      border-color: rgba(255, 255, 255, 0.18);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.03)),
+        rgba(8, 11, 20, 0.18);
+    }
+
+    .chip-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .chip-emoji {
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+
+    .chip-name {
+      margin: 0;
+      font-size: 1.12rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .chip-note {
+      margin: 6px 0 0;
+      color: rgba(255, 255, 255, 0.62);
+      font-size: 0.92rem;
+      line-height: 1.5;
+    }
+
+    .drawer {
+      border-radius: 22px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02)),
+        rgba(8, 11, 20, 0.16);
+      padding: 20px 22px 22px;
+      min-height: 176px;
+      backdrop-filter: blur(10px);
+    }
+
+    .drawer-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 14px;
+    }
+
+    .drawer-name {
+      margin: 0;
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+    }
+
+    .drawer-title {
+      margin: 0 0 12px;
+      color: rgba(255, 255, 255, 0.54);
+      font-family: "Geist Mono", monospace;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+    }
+
+    .practice-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .practice {
+      position: relative;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      color: rgba(255, 255, 255, 0.82);
+      font-size: 0.94rem;
+      line-height: 1.55;
+      padding-left: 28px;
+    }
+
+    .practice::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 1px;
+      width: 18px;
+      height: 18px;
+      border-radius: 999px;
+      background: rgba(133, 234, 255, 0.12);
+      border: 1px solid rgba(133, 234, 255, 0.26);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    }
+
+    .practice::after {
+      content: "";
+      position: absolute;
+      width: 8px;
+      height: 4px;
+      border-left: 2px solid var(--cyan);
+      border-bottom: 2px solid var(--cyan);
+      left: 5px;
+      top: 6px;
+      transform: rotate(-45deg);
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 1080px) {
+      .chip-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 760px) {
+      .preview-shell {
+        padding: 14px;
+      }
+
+      .section {
+        padding: 24px 16px 20px;
+      }
+
+      .section-head {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .panel-inner {
+        padding: 20px 18px 18px;
+      }
+
+      .content-stage {
+        padding: 22px 18px 20px;
+      }
+
+      .chip-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .drawer-head {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="preview-shell">
+    <section class="section">
+      <div class="orbital-ring" aria-hidden="true"></div>
+      <div class="orbital-ring-small" aria-hidden="true"></div>
+      <div class="orbital-ring-left" aria-hidden="true"></div>
+
+      <div class="section-head">
+        <span class="section-number">04</span>
+        <h1 class="section-title">What Leaders Are Doing</h1>
+      </div>
+      
+      <div class="panel">
+        <div class="panel-inner">
+            <div class="content-stage active" data-stage="leaders">
+              <div class="stage-meta">
+                <div class="stage-summary">
+                  <h3 class="stage-heading">These leaders run CX as a coordinated growth system, not a collection of good intentions.</h3>
+                </div>
+              </div>
+
+              <div class="chip-grid">
+                <button class="comp-chip active" type="button" data-competitor="intrepid">
+                  <div class="chip-head">
+                    <span class="chip-emoji">🧭</span>
+                  </div>
+                  <p class="chip-name">Intrepid</p>
+                  <p class="chip-note">Journey-driven, disciplined, and consistent in how insight becomes action.</p>
+                </button>
+
+                <button class="comp-chip" type="button" data-competitor="g-adventures">
+                  <div class="chip-head">
+                    <span class="chip-emoji">🌍</span>
+                  </div>
+                  <p class="chip-name">G Adventures</p>
+                  <p class="chip-note">Stronger cross-team visibility and better operational follow-through at scale.</p>
+                </button>
+
+                <button class="comp-chip" type="button" data-competitor="experience-platform">
+                  <div class="chip-head">
+                    <span class="chip-emoji">🎟️</span>
+                  </div>
+                  <p class="chip-name">Experience Platform</p>
+                  <p class="chip-note">Advanced digital orchestration and faster feedback-to-improvement cycles.</p>
+                </button>
+              </div>
+
+              <div class="drawer" data-drawer="leaders"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const leadersData = {
+      drawerDefault: "intrepid",
+      competitors: {
+        "intrepid": {
+          name: "Intrepid",
+          why: [
+            "Customer insight is translated into structured priorities across the business.",
+            "Journey visibility and issue resolution are managed more consistently at scale.",
+            "CX maturity supports growth, trust, and repeatability rather than sitting beside them."
+          ]
+        },
+        "g-adventures": {
+          name: "G Adventures",
+          why: [
+            "Cross-functional teams operate with stronger clarity on the full customer journey.",
+            "Pain points are more likely to be tracked, assigned, and closed with discipline.",
+            "The operating model is less dependent on heroic individuals and more embedded in the system."
+          ]
+        },
+        "experience-platform": {
+          name: "Experience Platform",
+          why: [
+            "Digital orchestration and service design are connected more tightly.",
+            "Signals are turned into prioritization decisions faster and with better evidence quality.",
+            "Execution shows stronger consistency across touchpoints and stakeholders."
+          ]
+        }
+      }
+    };
+
+    function renderDrawer(competitorKey) {
+      const drawer = document.querySelector('[data-drawer="leaders"]');
+      const competitor = leadersData.competitors[competitorKey];
+      if (!drawer || !competitor) return;
+
+      drawer.innerHTML = `
+        <div class="drawer-head">
+          <h4 class="drawer-name">${competitor.name}</h4>
+        </div>
+        <p class="drawer-title">What leaders are doing</p>
+        <div class="practice-list">
+          ${competitor.why.map((item) => `<div class="practice">${item}</div>`).join("")}
+        </div>
+      `;
+    }
+
+    function updateChips(competitorKey) {
+      document.querySelectorAll(".comp-chip").forEach((chip) => {
+        chip.classList.toggle("active", chip.dataset.competitor === competitorKey);
+      });
+    }
+
+    document.querySelectorAll(".comp-chip").forEach((chip) => {
+      chip.addEventListener("click", () => {
+        const competitorKey = chip.dataset.competitor;
+        if (!competitorKey) return;
+        updateChips(competitorKey);
+        renderDrawer(competitorKey);
+      });
+    });
+
+    updateChips(leadersData.drawerDefault);
+    renderDrawer(leadersData.drawerDefault);
+  </script>
+</body>
+</html>

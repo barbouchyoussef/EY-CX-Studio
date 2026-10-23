@@ -1,0 +1,86 @@
+<svg width="640" height="640" viewBox="0 0 640 640" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="gBlue" x1="140" y1="120" x2="520" y2="520" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#9C43FE"/>
+      <stop offset="0.48" stop-color="#4CC2E9"/>
+      <stop offset="1" stop-color="#101499"/>
+    </linearGradient>
+    <linearGradient id="gGlass" x1="210" y1="150" x2="430" y2="310" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1B2538"/>
+      <stop offset="1" stop-color="#060A12"/>
+    </linearGradient>
+    <radialGradient id="gGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(320 500) rotate(90) scale(120 180)">
+      <stop stop-color="#4CC2E9" stop-opacity="0.45"/>
+      <stop offset="1" stop-color="#4CC2E9" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="fShadow" x="110" y="510" width="420" height="90" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="14"/>
+    </filter>
+  </defs>
+
+  <!-- soft floor shadow -->
+  <g filter="url(#fShadow)">
+    <ellipse cx="320" cy="560" rx="170" ry="22" fill="#0B1220" fill-opacity="0.18"/>
+  </g>
+
+  <!-- hover glow -->
+  <ellipse cx="320" cy="510" rx="160" ry="110" fill="url(#gGlow)"/>
+
+  <!-- antenna / halo -->
+  <path d="M212 176C245 130 285 108 320 108C355 108 395 130 428 176" stroke="url(#gBlue)" stroke-width="16" stroke-linecap="round"/>
+  <path d="M210 176C244 126 286 100 320 100C354 100 396 126 430 176" stroke="#EAF6FF" stroke-opacity="0.8" stroke-width="6" stroke-linecap="round"/>
+
+  <!-- head shell -->
+  <rect x="196" y="154" width="248" height="210" rx="70" fill="#F7FBFF"/>
+  <rect x="196" y="154" width="248" height="210" rx="70" stroke="#0B1220" stroke-opacity="0.08" stroke-width="6"/>
+
+  <!-- headphones -->
+  <rect x="156" y="216" width="56" height="116" rx="24" fill="#F7FBFF"/>
+  <rect x="428" y="216" width="56" height="116" rx="24" fill="#F7FBFF"/>
+  <rect x="156" y="216" width="56" height="116" rx="24" stroke="#0B1220" stroke-opacity="0.08" stroke-width="6"/>
+  <rect x="428" y="216" width="56" height="116" rx="24" stroke="#0B1220" stroke-opacity="0.08" stroke-width="6"/>
+
+  <!-- face glass -->
+  <rect x="234" y="196" width="172" height="132" rx="42" fill="url(#gGlass)"/>
+  <rect x="234" y="196" width="172" height="132" rx="42" stroke="#FFFFFF" stroke-opacity="0.10" stroke-width="4"/>
+
+  <!-- highlights -->
+  <path d="M252 214C268 202 292 196 318 196" stroke="#FFFFFF" stroke-opacity="0.18" stroke-width="10" stroke-linecap="round"/>
+  <path d="M252 238C262 230 278 225 296 224" stroke="#FFFFFF" stroke-opacity="0.10" stroke-width="8" stroke-linecap="round"/>
+
+  <!-- eyes -->
+  <path d="M282 262C282 250 292 240 304 240" stroke="#7CF7D4" stroke-width="10" stroke-linecap="round"/>
+  <path d="M358 240C370 240 380 250 380 262" stroke="#7CF7D4" stroke-width="10" stroke-linecap="round"/>
+
+  <!-- smile -->
+  <path d="M304 290C312 300 328 300 336 290" stroke="#7CF7D4" stroke-width="10" stroke-linecap="round"/>
+
+  <!-- body -->
+  <path d="M250 378C250 344 277 318 310 318H330C363 318 390 344 390 378V456C390 507 351 548 302 548H338C289 548 250 507 250 456V378Z" fill="#F7FBFF"/>
+  <path d="M250 404H390V446H250V404Z" fill="url(#gBlue)" fill-opacity="0.75"/>
+  <path d="M250 378C250 344 277 318 310 318H330C363 318 390 344 390 378V456C390 507 351 548 302 548H338C289 548 250 507 250 456V378Z" stroke="#0B1220" stroke-opacity="0.08" stroke-width="6"/>
+
+  <!-- badge -->
+  <g transform="translate(290 406)">
+    <circle cx="0" cy="0" r="26" fill="#F6D200"/>
+    <circle cx="0" cy="0" r="20" fill="#FFF7C2"/>
+    <path d="M0 -10L3.8 -2.6L12 -2.6L5.4 2.0L8.2 10.2L0 5.8L-8.2 10.2L-5.4 2.0L-12 -2.6L-3.8 -2.6L0 -10Z" fill="#A56A00"/>
+  </g>
+
+  <!-- arms -->
+  <path d="M236 418C208 430 194 452 192 482" stroke="#0B1220" stroke-opacity="0.24" stroke-width="14" stroke-linecap="round"/>
+  <path d="M404 418C432 430 446 452 448 482" stroke="#0B1220" stroke-opacity="0.24" stroke-width="14" stroke-linecap="round"/>
+
+  <g>
+    <rect x="150" y="468" width="78" height="72" rx="22" fill="#4CC2E9"/>
+    <rect x="412" y="468" width="78" height="72" rx="22" fill="#4CC2E9"/>
+    <rect x="150" y="468" width="78" height="72" rx="22" stroke="#0B1220" stroke-opacity="0.10" stroke-width="6"/>
+    <rect x="412" y="468" width="78" height="72" rx="22" stroke="#0B1220" stroke-opacity="0.10" stroke-width="6"/>
+  </g>
+
+  <!-- bottom thruster -->
+  <circle cx="320" cy="548" r="36" fill="#101499" fill-opacity="0.85"/>
+  <circle cx="320" cy="548" r="16" fill="#7CF7D4" fill-opacity="0.95"/>
+  <circle cx="320" cy="548" r="8" fill="#EAF6FF" fill-opacity="0.8"/>
+</svg>
+

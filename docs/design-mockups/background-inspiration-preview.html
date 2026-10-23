@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Background Inspiration Preview</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+      background: #0e0e10;
+      font-family: "Helvetica Neue", Arial, sans-serif;
+    }
+
+    .frame {
+      position: relative;
+      width: 100%;
+      min-height: 100vh;
+      overflow: hidden;
+      background-color: #0e0e10;
+    }
+
+    .backdrop-copy {
+      position: absolute;
+      top: 50%;
+      left: 96px;
+      transform: translateY(-50%) rotate(-90deg);
+      transform-origin: left top;
+      width: 560px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      z-index: 3;
+    }
+
+    .title {
+      margin: 0;
+      color: #ffffff;
+      font-size: clamp(2.4rem, 4vw, 4rem);
+      line-height: 1.03;
+      letter-spacing: -0.04em;
+      font-weight: 700;
+      max-width: 420px;
+    }
+
+    .subtitle {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.92);
+      font-size: clamp(1.2rem, 2vw, 2rem);
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      font-weight: 300;
+      max-width: 360px;
+    }
+
+    .brand-mark {
+      margin-top: 18px;
+      color: rgba(255, 255, 255, 0.72);
+      font-size: 0.95rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .shape {
+      position: absolute;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 999px;
+      pointer-events: none;
+    }
+
+    .ellipse {
+      top: 140px;
+      left: 50px;
+      width: 180px;
+      height: 180px;
+      transform: rotate(120deg);
+    }
+
+    .ellipse-large {
+      top: 50px;
+      left: -22px;
+      width: 276px;
+      height: 276px;
+      transform: rotate(120deg);
+    }
+
+    .ellipse-bottom {
+      right: -120px;
+      bottom: -60px;
+      width: 365px;
+      height: 365px;
+      transform: rotate(-15deg);
+    }
+
+    .soft-orbit {
+      position: absolute;
+      inset: auto;
+      width: 58vw;
+      max-width: 760px;
+      aspect-ratio: 1 / 1;
+      right: -160px;
+      top: 50%;
+      transform: translateY(-50%);
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 34% 30%, rgba(255, 255, 255, 0.2), transparent 18%),
+        radial-gradient(circle at 70% 36%, rgba(137, 200, 255, 0.18), transparent 24%),
+        radial-gradient(circle at 62% 68%, rgba(255, 224, 168, 0.14), transparent 22%),
+        radial-gradient(circle at 48% 52%, rgba(255, 255, 255, 0.08), transparent 45%);
+      filter: blur(8px);
+      opacity: 0.72;
+    }
+
+    .soft-orbit::before,
+    .soft-orbit::after {
+      content: "";
+      position: absolute;
+      inset: 10% 14%;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .soft-orbit::after {
+      inset: 24% 28%;
+      opacity: 0.7;
+    }
+
+    .preview-note {
+      position: absolute;
+      left: 28px;
+      bottom: 24px;
+      z-index: 4;
+      color: rgba(255, 255, 255, 0.42);
+      font-size: 0.9rem;
+      letter-spacing: 0.01em;
+    }
+
+    @media (max-width: 900px) {
+      .backdrop-copy {
+        left: 48px;
+        width: 460px;
+      }
+
+      .soft-orbit {
+        width: 78vw;
+        right: -180px;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .frame {
+        min-height: 100vh;
+      }
+
+      .backdrop-copy {
+        position: relative;
+        top: auto;
+        left: auto;
+        transform: none;
+        width: auto;
+        padding: 64px 24px 0;
+      }
+
+      .soft-orbit {
+        width: 120vw;
+        max-width: none;
+        right: -42vw;
+        top: auto;
+        bottom: -12vw;
+        transform: none;
+        opacity: 0.55;
+      }
+
+      .ellipse {
+        top: 18px;
+        left: 16px;
+      }
+
+      .ellipse-large {
+        top: -24px;
+        left: -46px;
+      }
+
+      .ellipse-bottom {
+        right: -180px;
+        bottom: 20px;
+      }
+
+      .preview-note {
+        left: 24px;
+        right: 24px;
+        bottom: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="frame">
+    <div class="shape ellipse"></div>
+    <div class="shape ellipse-large"></div>
+    <div class="shape ellipse-bottom"></div>
+
+    <div class="soft-orbit" aria-hidden="true"></div>
+
+    <div class="backdrop-copy">
+      <h1 class="title">Cx Plug N’ Play</h1>
+      <p class="subtitle">Guide de la tranformation de l’experience digitale</p>
+      <div class="brand-mark">Background color inspiration preview</div>
+    </div>
+
+    <div class="preview-note">
+      Local reconstruction focused on the background mood, dark tone, and outline rings.
+    </div>
+  </div>
+</body>
+</html>

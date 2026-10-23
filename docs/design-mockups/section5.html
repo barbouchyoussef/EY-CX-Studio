@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Orbit Section 5 Go Further</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    :root {
+      --bg-deep: #111318;
+      --bg-navy: #17315f;
+      --bg-violet: #4020cb;
+      --ink: #ffffff;
+      --ink-soft: rgba(255, 255, 255, 0.84);
+      --ink-muted: rgba(255, 255, 255, 0.58);
+      --line: rgba(255, 255, 255, 0.12);
+      --line-soft: rgba(255, 255, 255, 0.08);
+      --gold: #ffd447;
+      --gold-deep: #c8973f;
+      --cyan: #85eaff;
+      --cyan-deep: #00d4ff;
+      --violet: #9f93ff;
+      --violet-deep: #4d22df;
+      --emerald: #61f2ba;
+      --rose: #ff8ba7;
+      --shadow: 0 24px 72px rgba(0, 0, 0, 0.28);
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      min-height: 100%;
+      font-family: "Inter", system-ui, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 76% 12%, rgba(239, 202, 222, 0.92), rgba(239, 202, 222, 0.16) 24%, transparent 44%),
+        radial-gradient(circle at 84% 82%, rgba(116, 38, 255, 0.56), transparent 28%),
+        linear-gradient(118deg, #121318 0%, #17315f 34%, #2a29a7 68%, #491fd8 100%);
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 18% 28%, rgba(255,255,255,0.06), transparent 12%),
+        radial-gradient(circle at 36% 82%, rgba(255,255,255,0.04), transparent 10%);
+      mix-blend-mode: screen;
+      opacity: 0.6;
+    }
+
+    button, input, textarea { font: inherit; }
+
+    .preview-shell {
+      min-height: 100vh;
+      padding: 24px;
+    }
+
+    .section {
+      position: relative;
+      width: min(1320px, 100%);
+      margin: 0 auto;
+      padding: 34px 36px 28px;
+      isolation: isolate;
+    }
+
+    /* Orbital decorations */
+    .orbital-ring, .orbital-ring-small, .orbital-ring-left {
+      position: absolute;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.13);
+      pointer-events: none;
+    }
+    .orbital-ring       { top:-52px; right:22px;   width:300px; height:300px; opacity:0.28; }
+    .orbital-ring-small { top:10px;  right:84px;   width:180px; height:180px; opacity:0.18; }
+    .orbital-ring-left  { left:-110px; bottom:140px; width:320px; height:320px; opacity:0.12; }
+
+    /* Section header */
+    .section-head {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .section-number {
+      font-family: "Geist Mono", monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+    }
+
+    .section-title {
+      margin: 0;
+      font-size: clamp(1.5rem, 3vw, 2.05rem);
+      line-height: 1.08;
+      letter-spacing: -0.04em;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    /* Studio wrap */
+    .studio-wrap {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      gap: 22px;
+    }
+
+    /* Orbit message */
+    .studio-orbit-msg {
+      display: grid;
+      grid-template-columns: 70px minmax(0, 1fr);
+      gap: 18px;
+      align-items: center;
+      padding: 20px 22px;
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: linear-gradient(135deg, rgba(255,212,71,0.08), rgba(159,147,255,0.1));
+      animation: riseIn 620ms ease both;
+    }
+
+    .som-av {
+      display: grid;
+      place-items: center;
+      width: 70px;
+      height: 70px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .som-av svg { width:42px; height:42px; }
+
+    .som-from {
+      font-family: "Geist Mono", monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.54);
+    }
+
+    .som-text {
+      margin-top: 8px;
+      color: var(--ink-soft);
+      line-height: 1.68;
+      font-size: 1rem;
+      max-width: 80ch;
+    }
+
+    /* Main card */
+    .studio-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 30px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.025)),
+        rgba(10,13,25,0.22);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+      animation: riseIn 720ms ease 90ms both;
+    }
+
+    .studio-top-bar {
+      height: 6px;
+      background: linear-gradient(90deg, var(--gold), var(--cyan), var(--violet));
+    }
+
+    .studio-inner {
+      position: relative;
+      padding: 36px 36px 32px;
+    }
+
+    .studio-bg-glow {
+      position: absolute;
+      right: -60px; top: -40px;
+      width: 360px; height: 360px;
+      border-radius: 999px;
+      background:
+        radial-gradient(circle, rgba(255,212,71,0.16), rgba(255,212,71,0.03) 42%, transparent 66%),
+        radial-gradient(circle at 40% 60%, rgba(159,147,255,0.18), transparent 52%);
+      filter: blur(10px);
+      pointer-events: none;
+    }
+
+    /* Heading block */
+    .studio-hl {
+      position: relative;
+      z-index: 2;
+      margin: 0;
+      max-width: 720px;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: 1.02;
+      letter-spacing: -0.05em;
+      font-weight: 700;
+      color: #fff;
+    }
+    .studio-hl em { font-style: normal; color: var(--gold); }
+
+    .studio-body {
+      position: relative;
+      z-index: 2;
+      max-width: 680px;
+      margin-top: 18px;
+      color: var(--ink-soft);
+      font-size: 1rem;
+      line-height: 1.74;
+    }
+
+    /* ── OFFERS GRID ── */
+    .studio-offers {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 32px;
+      align-items: stretch; /* all cards same height */
+    }
+
+    .s-offer {
+      display: flex;
+      flex-direction: column;
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.04);
+      padding: 22px 20px 20px;
+      transition: transform 220ms ease, border-color 220ms ease, background 220ms ease;
+    }
+
+    .s-offer:hover {
+      transform: translateY(-3px);
+      border-color: rgba(255,255,255,0.18);
+      background: rgba(255,255,255,0.07);
+    }
+
+    /* accent bar per card */
+    .so-accent {
+      width: 32px;
+      height: 3px;
+      border-radius: 999px;
+      margin-bottom: 16px;
+    }
+    .s-offer:nth-child(1) .so-accent { background: var(--gold); }
+    .s-offer:nth-child(2) .so-accent { background: var(--cyan); }
+    .s-offer:nth-child(3) .so-accent { background: var(--violet); }
+    .s-offer:nth-child(4) .so-accent { background: var(--emerald); }
+
+    .so-num {
+      font-family: "Geist Mono", monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.42);
+      margin-bottom: 8px;
+    }
+
+    .so-t {
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 700;
+      line-height: 1.28;
+    }
+
+    .so-d {
+      margin-top: 10px;
+      color: rgba(255,255,255,0.68);
+      font-size: 0.88rem;
+      line-height: 1.62;
+      flex: 1; /* pushes bottom of card to equal height */
+    }
+
+    /* ── CTA BLOCK ── */
+    .studio-cta-block {
+      position: relative;
+      z-index: 2;
+      margin-top: 32px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 26px 28px;
+      border-radius: 22px;
+      border: 1px solid rgba(255, 212, 71, 0.22);
+      background: linear-gradient(135deg, rgba(255,212,71,0.10) 0%, rgba(159,147,255,0.08) 100%);
+    }
+
+    .scta-text {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .scta-label {
+      font-family: "Geist Mono", monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 6px;
+    }
+
+    .scta-heading {
+      margin: 0;
+      font-size: 1.12rem;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.3;
+    }
+
+    .scta-sub {
+      margin-top: 4px;
+      color: rgba(255,255,255,0.66);
+      font-size: 0.88rem;
+      line-height: 1.5;
+    }
+
+    .scta-actions {
+      display: flex;
+      gap: 12px;
+      flex-shrink: 0;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      border: 0;
+      border-radius: 999px;
+      padding: 14px 22px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: #111318;
+      background: linear-gradient(135deg, var(--gold) 0%, rgba(255,255,255,0.92) 100%);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: transform 200ms ease, filter 200ms ease, box-shadow 200ms ease;
+      box-shadow: 0 8px 24px rgba(255,212,71,0.28), 0 2px 8px rgba(0,0,0,0.18);
+      text-decoration: none;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.06);
+      box-shadow: 0 12px 32px rgba(255,212,71,0.38), 0 4px 12px rgba(0,0,0,0.22);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 999px;
+      padding: 13px 20px;
+      font-weight: 600;
+      font-size: 0.92rem;
+      color: rgba(255,255,255,0.88);
+      background: rgba(255,255,255,0.06);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: border-color 200ms ease, background 200ms ease, transform 200ms ease;
+      text-decoration: none;
+    }
+    .btn-secondary:hover {
+      border-color: rgba(255,255,255,0.34);
+      background: rgba(255,255,255,0.10);
+      transform: translateY(-1px);
+    }
+
+    /* Footer row */
+    .studio-foot-row {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 20px;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 24px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .sfl {
+      color: rgba(255,255,255,0.56);
+      font-size: 0.86rem;
+      line-height: 1.5;
+    }
+    .sfl b { color: rgba(255,255,255,0.78); font-weight: 600; }
+
+    .talk-link {
+      color: var(--cyan);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.88rem;
+      transition: opacity 180ms ease;
+    }
+    .talk-link:hover { opacity: 0.76; text-decoration: underline; }
+
+    .section-footer {
+      position: relative;
+      z-index: 2;
+      margin-top: 26px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      color: rgba(255, 255, 255, 0.72);
+      font-family: "Geist Mono", monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+    .section-footer img {
+      width: 124px;
+      height: auto;
+      flex: 0 0 auto;
+      filter: brightness(1.04);
+    }
+
+    .section-footer p {
+      margin: 0;
+    }
+
+    @keyframes riseIn {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Responsive */
+    @media (max-width: 1100px) {
+      .studio-offers {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .scta-actions { flex-direction: column; align-items: flex-start; }
+    }
+
+    @media (max-width: 720px) {
+      .preview-shell { padding: 16px; }
+      .section { padding: 24px 0 12px; }
+      .studio-inner { padding: 22px 18px 20px; }
+      .studio-orbit-msg { grid-template-columns: 1fr; }
+      .studio-offers { grid-template-columns: 1fr; }
+      .studio-cta-block { flex-direction: column; align-items: flex-start; }
+      .scta-actions { width: 100%; }
+      .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
+      .studio-foot-row { align-items: flex-start; }
+      .section-footer {
+        flex-direction: column;
+        gap: 10px;
+        font-size: 0.68rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="preview-shell">
+    <section class="section">
+      <div class="orbital-ring"></div>
+      <div class="orbital-ring-small"></div>
+      <div class="orbital-ring-left"></div>
+
+      <div class="section-head">
+        <span class="section-number">05</span>
+        <h1 class="section-title">Go Further</h1>
+      </div>
+
+      <div class="studio-wrap">
+
+        <!-- Orbit closing note -->
+        <div class="studio-orbit-msg">
+          <div class="som-av" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <circle cx="12" cy="12" r="3" fill="#ffd447"></circle>
+              <circle cx="12" cy="12" r="7" stroke="#ffd447" stroke-width="1" stroke-dasharray="2 2" opacity=".5"></circle>
+            </svg>
+          </div>
+          <div>
+            <div class="som-from">Orbit | Closing note</div>
+            <div class="som-text">
+              The quick wins above are real and achievable on your own. For organizations ready to move faster with senior expertise embedded alongside their team and sector benchmarks at every milestone, this is where Orbit connects to EY Studio+.
+            </div>
+          </div>
+        </div>
+
+        <!-- Main card -->
+        <div class="studio-card" id="contact">
+          <div class="studio-top-bar"></div>
+          <div class="studio-inner">
+            <div class="studio-bg-glow" aria-hidden="true"></div>
+
+            <h2 class="studio-hl">
+              Some gaps close with a document.<br />
+              Others need <em>the right people</em><br />
+              in the room.
+            </h2>
+
+            <div class="studio-body">
+              EY Studio+ works with organizations at every maturity stage, designing the measurement infrastructure, personalization systems, and digital experience that move growing operators into the same competitive league as the leaders referenced in this report. Engagement starts with a conversation, not a proposal.
+            </div>
+
+            <!-- 4-up offer cards — equal height via flexbox -->
+            <div class="studio-offers">
+              <div class="s-offer">
+                <div class="so-accent" aria-hidden="true"></div>
+                <div class="so-num">-- 01</div>
+                <div class="so-t">CX Quick Start</div>
+                <div class="so-d">Close the top two capability gaps in four weeks with a working feedback system, practical measurement setup, and your first usable dashboard.</div>
+              </div>
+
+              <div class="s-offer">
+                <div class="so-accent" aria-hidden="true"></div>
+                <div class="so-num">-- 02</div>
+                <div class="so-t">Digital Experience Audit</div>
+                <div class="so-d">Full review of the booking journey across homepage, mobile, messaging, and handoffs, with annotated findings and a prioritized implementation backlog.</div>
+              </div>
+
+              <div class="s-offer">
+                <div class="so-accent" aria-hidden="true"></div>
+                <div class="so-num">-- 03</div>
+                <div class="so-t">90-Day CX Transformation</div>
+                <div class="so-d">Measurement, strategy, personalization, and channel standards delivered with a senior EY specialist embedded alongside your team from day one.</div>
+              </div>
+
+              <div class="s-offer">
+                <div class="so-accent" aria-hidden="true"></div>
+                <div class="so-num">-- 04</div>
+                <div class="so-t">CX Strategy Session</div>
+                <div class="so-d">A focused session with a sector specialist who has already read this report and can turn it into a concrete 90-day action path.</div>
+              </div>
+            </div>
+
+            <!-- ── Clear CTA block ── -->
+            <div class="studio-cta-block">
+              <div class="scta-text">
+                <div class="scta-label">Ready to start?</div>
+                <h3 class="scta-heading">Book a 30-minute strategy session with a sector specialist.</h3>
+                <div class="scta-sub">No proposal. No commitment. First value delivered in 4 weeks.</div>
+              </div>
+              <div class="scta-actions">
+                <a href="mailto:cx@studio.ey.com" class="btn-primary">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <path d="M2 4l6 5 6-5" stroke="#111318" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <rect x="1" y="3" width="14" height="10" rx="2" stroke="#111318" stroke-width="1.5"/>
+                  </svg>
+                  Book a Session
+                </a>
+                <a href="mailto:cx@studio.ey.com" class="btn-secondary">
+                  Just send the report
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                    <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </a>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+
+        <footer class="section-footer">
+          <img src="./EY_Studio+_Logo_Primary_WithoutStrapline_RGB_White_Yellow_Grad_EN.png" alt="EY Studio+ logo" />
+          <p>&copy; 2026 EY Studio+ Customer Experience. All rights reserved.</p>
+        </footer>
+
+      </div>
+    </section>
+  </div>
+</body>
+</html>

@@ -1,0 +1,2 @@
+class AssessmentStateConflictError(ValueError):
+    pass

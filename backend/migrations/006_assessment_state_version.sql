@@ -1,0 +1,6 @@
+BEGIN;
+
+ALTER TABLE assessments
+ADD COLUMN IF NOT EXISTS state_version INT NOT NULL DEFAULT 1;
+
+COMMIT;

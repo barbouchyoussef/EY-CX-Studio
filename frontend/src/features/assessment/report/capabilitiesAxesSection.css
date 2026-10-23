@@ -1,0 +1,659 @@
+.report-orbit-shell {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+.report-orbit-shell .hero-glow-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.6;
+}
+.report-orbit-shell .hero-glow-a,
+.report-orbit-shell .hero-glow-b {
+  position: absolute;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  filter: blur(48px);
+}
+.report-orbit-shell .hero-glow-a {
+  left: 18%;
+  top: 28%;
+  width: 96px;
+  height: 96px;
+}
+.report-orbit-shell .hero-glow-b {
+  left: 36%;
+  top: 82%;
+  width: 80px;
+  height: 80px;
+  background: rgba(255, 255, 255, 0.05);
+}
+.report-orbit-shell .section {
+  position: relative;
+  width: min(1320px, 100%);
+  margin: 0 auto;
+  padding: 34px 36px 28px;
+  isolation: isolate;
+}
+.report-orbit-shell .orbital-ring,
+.report-orbit-shell .orbital-ring-small,
+.report-orbit-shell .orbital-ring-left {
+  position: absolute;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  pointer-events: none;
+}
+.report-orbit-shell .orbital-ring {
+  top: -52px;
+  right: 22px;
+  width: 300px;
+  height: 300px;
+  opacity: 0.28;
+}
+.report-orbit-shell .orbital-ring-small {
+  top: 10px;
+  right: 84px;
+  width: 180px;
+  height: 180px;
+  opacity: 0.18;
+}
+.report-orbit-shell .orbital-ring-left {
+  left: -110px;
+  bottom: 140px;
+  width: 320px;
+  height: 320px;
+  opacity: 0.12;
+}
+.report-orbit-shell .section-head {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.report-orbit-shell .section-number {
+  font-family: "Geist Mono", monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+}
+.report-orbit-shell .section-title {
+  margin: 0;
+  font-size: clamp(1.5rem, 3vw, 2.05rem);
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+  font-weight: 700;
+  color: #fff;
+}
+.report-orbit-shell .panel-inner {
+  position: relative;
+  z-index: 2;
+  padding: 0;
+}
+.report-orbit-shell .panel {
+  position: relative;
+  z-index: 2;
+  border-radius: 28px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.025));
+  box-shadow: 0 24px 72px rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(12px);
+  overflow: hidden;
+}
+.report-orbit-shell .panel .panel-inner {
+  padding: 28px 28px 24px;
+}
+.report-orbit-shell .stepper-shell {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.report-orbit-shell .stepper-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(56px, 1fr) minmax(0, 1fr) minmax(56px, 1fr) minmax(0, 1fr);
+  align-items: center;
+  gap: 0;
+  padding: 22px 22px 0;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  width: 100%;
+  margin: 0;
+}
+.report-orbit-shell .step-wrap {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-width: 0;
+  max-width: none;
+}
+.report-orbit-shell .step-button {
+  position: relative;
+  z-index: 2;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: default;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 132px;
+  min-width: 0;
+  padding: 0 4px 20px;
+  font: inherit;
+  pointer-events: none;
+}
+.report-orbit-shell .step-badge {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.06);
+  transition: transform 220ms ease, box-shadow 220ms ease, background 220ms ease;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+.report-orbit-shell .step-button.active .step-badge {
+  transform: translateY(-2px);
+}
+.report-orbit-shell .step-button[data-tone="gold"].active .step-badge {
+  background: linear-gradient(135deg, #ffd447 0%, #c8973f 100%);
+  color: #fff;
+  box-shadow: 0 12px 26px rgba(200, 151, 63, 0.28);
+}
+.report-orbit-shell .step-button[data-tone="cyan"].active .step-badge {
+  background: linear-gradient(135deg, #85eaff 0%, #00d4ff 100%);
+  color: #fff;
+  box-shadow: 0 12px 26px rgba(0, 212, 255, 0.24);
+}
+.report-orbit-shell .step-button[data-tone="violet"].active .step-badge {
+  background: linear-gradient(135deg, #9f93ff 0%, #4d22df 100%);
+  color: #fff;
+  box-shadow: 0 12px 26px rgba(77, 34, 223, 0.26);
+}
+.report-orbit-shell .step-labels {
+  text-align: center;
+  min-width: 0;
+}
+.report-orbit-shell .step-name {
+  margin: 4px 0 0;
+  font-size: 1rem;
+  line-height: 1.1;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.92);
+}
+.report-orbit-shell .connector {
+  position: relative;
+  align-self: start;
+  margin-top: 23px;
+  height: 2px;
+  width: 100%;
+  background: linear-gradient(90deg, rgba(255, 212, 71, 0.28), rgba(133, 234, 255, 0.22));
+  border-radius: 999px;
+  overflow: hidden;
+}
+.report-orbit-shell .connector-fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 0;
+  border-radius: inherit;
+  opacity: 0.95;
+  transition: width 320ms ease, background 320ms ease;
+}
+.report-orbit-shell .axis-tabs {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.report-orbit-shell .axis-tab {
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 24px;
+  padding: 22px 22px 20px;
+  text-align: left;
+  color: #fff;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.015);
+  backdrop-filter: blur(12px);
+  transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1), border-color 300ms ease, background-color 300ms ease, box-shadow 300ms ease;
+}
+.report-orbit-shell .axis-tab:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.035);
+}
+.report-orbit-shell .axis-tab[data-axis="manage"].active {
+  background: linear-gradient(135deg, rgba(255, 212, 71, 0.08), rgba(255, 255, 255, 0.01));
+  border-color: rgba(255, 212, 71, 0.35);
+  box-shadow: 0 16px 36px rgba(255, 212, 71, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+.report-orbit-shell .axis-tab[data-axis="analyze"].active {
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.08), rgba(255, 255, 255, 0.01));
+  border-color: rgba(0, 212, 255, 0.35);
+  box-shadow: 0 16px 36px rgba(0, 212, 255, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+.report-orbit-shell .axis-tab[data-axis="improve"].active {
+  background: linear-gradient(135deg, rgba(124, 92, 255, 0.08), rgba(255, 255, 255, 0.01));
+  border-color: rgba(124, 92, 255, 0.35);
+  box-shadow: 0 16px 36px rgba(124, 92, 255, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+.report-orbit-shell .axis-tab[data-axis="manage"].active .axis-kicker { color: #ffd447; }
+.report-orbit-shell .axis-tab[data-axis="manage"].active .axis-score { color: #ffd447; }
+.report-orbit-shell .axis-tab[data-axis="analyze"].active .axis-kicker { color: #00d4ff; }
+.report-orbit-shell .axis-tab[data-axis="analyze"].active .axis-score { color: #00d4ff; }
+.report-orbit-shell .axis-tab[data-axis="improve"].active .axis-kicker { color: #9f93ff; }
+.report-orbit-shell .axis-tab[data-axis="improve"].active .axis-score { color: #9f93ff; }
+.report-orbit-shell .axis-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  font-family: "Geist Mono", monospace;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: rgba(255, 255, 255, 0.45);
+  transition: color 300ms ease;
+}
+.report-orbit-shell .axis-name {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+.report-orbit-shell .axis-mini {
+  margin: 6px 0 0;
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 0.88rem;
+  line-height: 1.45;
+}
+.report-orbit-shell .axis-score-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 18px;
+  gap: 16px;
+}
+.report-orbit-shell .axis-score {
+  font-size: 1.85rem;
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  transition: color 300ms ease;
+}
+.report-orbit-shell .axis-band {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.report-orbit-shell .axis-panel {
+  display: none;
+  border-radius: 24px;
+  background: transparent;
+  overflow: hidden;
+}
+.report-orbit-shell .axis-panel.active {
+  display: block;
+}
+.report-orbit-shell .axis-panel-head {
+  display: block;
+  padding: 16px 16px 20px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+.report-orbit-shell .axis-panel-title {
+  margin: 0 0 10px;
+  font-size: clamp(1.4rem, 3vw, 1.85rem);
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+  font-weight: 800;
+  color: #fff;
+}
+.report-orbit-shell .axis-panel-copy {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.74);
+  line-height: 1.65;
+  max-width: 68ch;
+  font-size: 0.98rem;
+}
+.report-orbit-shell .axis-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  padding: 24px 16px 16px 16px;
+}
+.report-orbit-shell .cap-col {
+  border-radius: 24px;
+  padding: 22px;
+  min-height: 100%;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.02);
+}
+.report-orbit-shell .cap-col.working {
+  background: linear-gradient(180deg, rgba(97, 242, 186, 0.02), rgba(97, 242, 186, 0.005));
+  border: 1px solid rgba(97, 242, 186, 0.12);
+}
+.report-orbit-shell .cap-col.missing {
+  background: linear-gradient(180deg, rgba(255, 139, 167, 0.02), rgba(255, 139, 167, 0.005));
+  border: 1px solid rgba(255, 139, 167, 0.12);
+}
+.report-orbit-shell .cap-col-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.report-orbit-shell .cap-col-title {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.01em;
+}
+.report-orbit-shell .cap-title-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.report-orbit-shell .status-icon {
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+}
+.report-orbit-shell .status-icon.working {
+  background: rgba(97, 242, 186, 0.12);
+  color: #baf7df;
+  border: 1px solid rgba(97, 242, 186, 0.24);
+}
+.report-orbit-shell .status-icon.missing {
+  background: rgba(255, 139, 167, 0.12);
+  color: #ffc0d0;
+  border: 1px solid rgba(255, 139, 167, 0.24);
+}
+.report-orbit-shell .cap-col-sub {
+  margin: 6px 0 0;
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+.report-orbit-shell .cap-col.working .cap-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  height: 32px;
+  padding: 0 10px;
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: 0.8rem;
+  background: rgba(97, 242, 186, 0.08);
+  border: 1px solid rgba(97, 242, 186, 0.2);
+  color: #baf7df;
+}
+.report-orbit-shell .cap-col.missing .cap-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  height: 32px;
+  padding: 0 10px;
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: 0.8rem;
+  background: rgba(255, 139, 167, 0.08);
+  border: 1px solid rgba(255, 139, 167, 0.2);
+  color: #ffc0d0;
+}
+.report-orbit-shell .cap-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.report-orbit-shell .cap-pill {
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 22px;
+  padding: 22px 20px 20px;
+  text-align: left;
+  color: inherit;
+  cursor: pointer;
+  background: rgba(9, 12, 22, 0.45);
+  backdrop-filter: blur(6px);
+  transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1), border-color 300ms ease, background-color 300ms ease, box-shadow 300ms ease;
+}
+.report-orbit-shell .cap-pill:hover {
+  transform: translateY(-4px) scale(1.015);
+  background: rgba(14, 18, 30, 0.6);
+}
+.report-orbit-shell .cap-col.working .cap-pill:hover {
+  border-color: rgba(97, 242, 186, 0.3);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.3), 0 0 20px rgba(97, 242, 186, 0.06);
+}
+.report-orbit-shell .cap-col.missing .cap-pill:hover {
+  border-color: rgba(255, 139, 167, 0.3);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 139, 167, 0.06);
+}
+.report-orbit-shell .cap-pill-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.report-orbit-shell .cap-pill-name {
+  margin: 0;
+  font-size: 1.08rem;
+  line-height: 1.35;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.01em;
+}
+.report-orbit-shell .cap-tag {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.report-orbit-shell .cap-tag-basic {
+  color: #ffd447;
+  background: rgba(255, 212, 71, 0.09);
+  border: 1px solid rgba(255, 212, 71, 0.2);
+}
+.report-orbit-shell .cap-tag-established {
+  color: #00d4ff;
+  background: rgba(0, 212, 255, 0.09);
+  border: 1px solid rgba(0, 212, 255, 0.2);
+}
+.report-orbit-shell .cap-tag-advanced {
+  color: #9f93ff;
+  background: rgba(159, 147, 255, 0.09);
+  border: 1px solid rgba(159, 147, 255, 0.2);
+}
+.report-orbit-shell .cap-pill-summary {
+  margin: 12px 0 0;
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 0.94rem;
+  line-height: 1.6;
+}
+.report-orbit-shell .modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(5, 8, 17, 0.72);
+  -webkit-backdrop-filter: blur(28px) saturate(0.85);
+  backdrop-filter: blur(28px) saturate(0.85);
+}
+.report-orbit-shell .modal.open {
+  display: flex;
+}
+.report-orbit-shell .modal-card {
+  width: min(600px, 100%);
+  max-height: min(70vh, 600px);
+  overflow: auto;
+  border-radius: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.025)),
+    rgba(9, 12, 22, 0.98);
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.42);
+}
+.report-orbit-shell .modal-head {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 24px 24px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+.report-orbit-shell .modal-overline {
+  font-family: "Geist Mono", monospace;
+  font-size: 0.74rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.48);
+}
+.report-orbit-shell #modal-title,
+.report-orbit-shell .modal-title {
+  margin: 12px 0 0;
+  font-size: clamp(1.4rem, 4vw, 1.7rem);
+  line-height: 1.25;
+  letter-spacing: -0.04em;
+  color: #fff !important;
+}
+.report-orbit-shell .modal-close {
+  border: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.82);
+  font-weight: 700;
+  cursor: pointer;
+}
+.report-orbit-shell .modal-body {
+  padding: 20px 24px 24px;
+}
+.report-orbit-shell .modal-evidence-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.report-orbit-shell .evidence-item {
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.035);
+  padding: 24px;
+}
+.report-orbit-shell .evidence-quote {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.65;
+  font-size: 1.05rem;
+}
+@media (max-width: 980px) {
+  .report-orbit-shell .axis-grid,
+  .report-orbit-shell .axis-tabs {
+    grid-template-columns: 1fr;
+  }
+  .report-orbit-shell .stepper-head {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    padding-bottom: 22px;
+  }
+  .report-orbit-shell .connector {
+    display: none;
+  }
+}
+@media print {
+  .report-orbit-shell .hero-glow-layer,
+  .report-orbit-shell .orbital-ring,
+  .report-orbit-shell .orbital-ring-small,
+  .report-orbit-shell .orbital-ring-left,
+  .report-orbit-shell .modal,
+  .report-orbit-shell .stepper-head,
+  .report-orbit-shell .axis-tabs,
+  .report-orbit-shell #axis-panels {
+    display: none !important;
+  }
+  .report-orbit-shell .section {
+    width: 100%;
+    padding: 18px 0 8px;
+  }
+  .report-orbit-shell .section-number,
+  .report-orbit-shell .axis-kicker,
+  .report-orbit-shell .modal-overline {
+    color: rgba(0, 0, 0, 0.55);
+  }
+  .report-orbit-shell .section-title,
+  .report-orbit-shell .axis-panel-title,
+  .report-orbit-shell .cap-col-title,
+  .report-orbit-shell .cap-pill-name,
+  .report-orbit-shell .axis-name {
+    color: #111318;
+  }
+  .report-orbit-shell .panel,
+  .report-orbit-shell .axis-panel,
+  .report-orbit-shell .cap-col,
+  .report-orbit-shell .cap-pill,
+  .report-orbit-shell .stepper-shell {
+    background: #fff !important;
+    border-color: rgba(0, 0, 0, 0.1) !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    color: #111318;
+  }
+  .report-orbit-shell .panel .panel-inner {
+    padding: 0;
+  }
+  .report-orbit-shell .print-axis-list {
+    display: flex !important;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .report-orbit-shell .print-axis-card {
+    break-inside: avoid;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 18px;
+    padding: 18px;
+    background: #fff;
+  }
+  .report-orbit-shell .print-axis-copy,
+  .report-orbit-shell .cap-col-sub,
+  .report-orbit-shell .cap-pill-summary,
+  .report-orbit-shell .axis-mini,
+  .report-orbit-shell .axis-panel-copy {
+    color: rgba(17, 19, 24, 0.78) !important;
+  }
+  .report-orbit-shell .print-axis-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-top: 14px;
+  }
+}

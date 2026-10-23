@@ -1,0 +1,25 @@
+# Keep the build context small and never bake secrets or local data into the image.
+**/.venv
+**/venv
+**/node_modules
+**/__pycache__
+**/*.pyc
+.git
+.github
+
+# Secrets — provided at runtime as Railway env vars, never in the image
+**/.env
+!**/.env.example
+
+# Local data stores — the real data lives in Supabase (Postgres + Storage)
+backend/desk_research_data
+backend/scraped_data
+backend/rag_data
+desk_research_data
+scraped_data
+rag_data
+
+# Local sample docs / spreadsheets
+*.xlsx
+*.pdf
+*.pptx

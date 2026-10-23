@@ -1,0 +1,6 @@
+BEGIN;
+
+ALTER TABLE assessments
+ADD COLUMN IF NOT EXISTS pending_question VARCHAR(1000);
+
+COMMIT;
