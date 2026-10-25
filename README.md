@@ -20,10 +20,9 @@ consultant sends to a client so that the client can answer an assessment directl
 
 Explore the [maturity assessment](#maturity-assessment-in-action), then see how
 [projects, research, and customer feedback](#from-evidence-to-an-issue-log) support the engagement.
-Expand each section for screenshots of the workflow and its deliverables.
+Use these links to jump to the sections below, or scroll through the screenshots and their captions.
 
-<details>
-<summary><strong>Meet CX Studio: one workspace for the engagement</strong></summary>
+### Meet CX Studio: one workspace for the engagement
 
 The studio brings the analysis modules into a shared workspace, with English and French
 interface options.
@@ -35,8 +34,6 @@ the issue log. Consultants can use a module independently or group its results w
 
 ![Five-module CX pipeline with standalone and project-based working options](assets/CX_studio_pipeline.png)
 
-</details>
-
 ### Maturity assessment in action
 
 From a guided conversation to a report a consultant can act on: the assessment brings together
@@ -47,8 +44,7 @@ CX maturity scores, capability gaps, sector benchmarks, and a phased improvement
 The report puts the overall maturity stage, strongest axis, and priority area beside an executive
 summary, with a PDF download available for sharing the deliverable.
 
-<details>
-<summary><strong>Client journey: introduce the assessment and capture business context</strong></summary>
+#### Client journey: introduce the assessment and capture business context
 
 The client-facing landing page introduces ORION and invites the client to begin a guided
 conversation about how their organisation manages, measures, and improves customer experience.
@@ -60,10 +56,7 @@ examples before the assessment starts.
 
 ![Assessment setup form collecting company name, sector, company size, and region](assets/maturity_assessment/Maturity_assessment_context.png)
 
-</details>
-
-<details>
-<summary><strong>Report walkthrough: turn maturity findings into priorities</strong></summary>
+#### Report walkthrough: turn maturity findings into priorities
 
 **Locate the maturity stage.** The report positions the assessment on the Basic, Established,
 and Advanced scale.
@@ -90,32 +83,23 @@ and options to request the report or book a discussion.
 
 ![Report closing section with consulting services and follow-up options](assets/maturity_assessment/report/6.png)
 
-</details>
-
-<details>
-<summary><strong>Admin analytics: explore assessments across engagements</strong></summary>
+#### Admin analytics: explore assessments across engagements
 
 The admin view maps assessments by region and provides filters for date, sector, company size,
 and region, helping consultants explore the assessment portfolio.
 
 ![Admin analytics dashboard with a regional assessment map and portfolio filters](assets/maturity_assessment/admin_analytics_view.png)
 
-</details>
-
 ### From evidence to an issue log
 
-<details>
-<summary><strong>Projects: track progress and keep results together</strong></summary>
+#### Projects: track progress and keep results together
 
 The project overview combines pipeline progress, team access, and attached results. Consultants
 can reopen completed assessments and interview guides from the same engagement workspace.
 
 ![Project overview showing pipeline progress, team membership, and attached module results](assets/project.png)
 
-</details>
-
-<details>
-<summary><strong>Desk research: turn documents into findings and explore the evidence</strong></summary>
+#### Desk research: turn documents into findings and explore the evidence
 
 Research sessions keep uploaded documents alongside the executive report controls and research
 assistant. The workspace lets consultants specify analysis goals before generating a report
@@ -129,10 +113,7 @@ in conversation while keeping the findings in view.
 
 ![Desk research executive report with finding counts, document references, and an assistant summarising risks and recommendations](assets/desk_research2.png)
 
-</details>
-
-<details>
-<summary><strong>Social listening: connect measured feedback to customer pain points</strong></summary>
+#### Social listening: connect measured feedback to customer pain points
 
 The report brings sentiment, ratings, review volumes, and channel coverage together. Visible
 sample counts distinguish the comments classified for sentiment from the wider set of collected
@@ -145,10 +126,7 @@ so consultants can examine the customer feedback behind each theme.
 
 ![Ranked network and customer service friction points with mention counts and supporting reviews](assets/social_listening_2.png)
 
-</details>
-
-<details>
-<summary><strong>Issue log: carry findings into a working spreadsheet</strong></summary>
+#### Issue log: carry findings into a working spreadsheet
 
 Consultants select the assessments, interviews, social listening results, and desk research
 analyses to consolidate, with an optional focus to guide the issue log.
@@ -159,8 +137,6 @@ The spreadsheet view organises findings, investigation details, strategic dimens
 subcategories, and sources into a filterable table for consultant review and follow-up.
 
 ![Issue log spreadsheet showing findings, investigation details, categories, and source references](assets/issue_log.png)
-
-</details>
 
 ## Modules
 
