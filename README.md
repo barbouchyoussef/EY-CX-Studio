@@ -8,6 +8,25 @@
 
 # EY CX Studio
 
+## Context and problem statement
+
+Customer experience consulting requires bringing together evidence from client documents,
+stakeholder interviews, maturity assessments, and public customer feedback. These sources are
+often scattered across files and tools, making it difficult to build a consistent picture of
+the organisation's customer experience.
+
+Consultants must manually review documents, compare stakeholder perspectives, identify recurring
+customer pain points, and consolidate findings into actionable recommendations. This work is
+time-consuming, and conflicting evidence can be difficult to reconcile. Maintaining traceability
+between a finding and its supporting sources adds another challenge.
+
+EY CX Studio was developed to support this workflow in a shared platform. It helps consultants
+collect and analyse evidence, assess CX maturity, and consolidate findings into an issue log,
+while keeping source references available for review. The aim is to reduce repetitive synthesis
+work and give consultants more time to validate findings, prioritise improvements, and advise clients.
+
+## Modules
+
 EY CX Studio is an internal platform for running customer experience consulting engagements. It
 provides five analysis modules that a consultant can use independently, and a project layer that
 groups them so the work done for one client is tracked in one place.
@@ -15,6 +34,21 @@ groups them so the work done for one client is tracked in one place.
 The interface and the generated deliverables are bilingual (English and French). Access is
 invite only: every route requires a signed in account, apart from the passwordless link a
 consultant sends to a client so that the client can answer an assessment directly.
+
+| Module | Purpose |
+|---|---|
+| Maturity assessment | A guided conversation that scores customer experience maturity on the Manage, Analyze and Improve axes against the framework's rubrics, then produces a report with quick wins, a recommendation timeline, and a benchmark of sector leaders built from web evidence. |
+| Interview guide | Generates a stakeholder interview guide, either from a completed assessment or from scratch. The guide is editable, answers are captured against each question, and an assistant cross references those answers with the assessment to flag disagreements. |
+| Desk research | Accepts client documents (PDF, DOCX, PPTX, XLSX, images) and produces a structured report. A chatbot answers questions over both the documents and the report it generated. |
+| Social listening | Collects public reviews and posts, classifies each one for sentiment, theme and complaint category, then reports on the aggregate. Every figure in the report is computed in Python; the model writes only the prose around it. |
+| Issue log | Consolidates the findings of the other modules into one prioritised list of issues, with the conflicts between sources made explicit, and exports it as a spreadsheet. |
+
+### Projects
+
+A project is not a sixth module. It is a layer over the five: it holds the pipeline for one client
+engagement, results attach to it as each module produces them, and members can be added so a
+colleague sees the same work. The modules do not depend on it and each runs the same way with or
+without a project open.
 
 ## Product walkthrough
 
@@ -137,23 +171,6 @@ The spreadsheet view organises findings, investigation details, strategic dimens
 subcategories, and sources into a filterable table for consultant review and follow-up.
 
 ![Issue log spreadsheet showing findings, investigation details, categories, and source references](assets/issue_log.png)
-
-## Modules
-
-| Module | Purpose |
-|---|---|
-| Maturity assessment | A guided conversation that scores customer experience maturity on the Manage, Analyze and Improve axes against the framework's rubrics, then produces a report with quick wins, a recommendation timeline, and a benchmark of sector leaders built from web evidence. |
-| Interview guide | Generates a stakeholder interview guide, either from a completed assessment or from scratch. The guide is editable, answers are captured against each question, and an assistant cross references those answers with the assessment to flag disagreements. |
-| Desk research | Accepts client documents (PDF, DOCX, PPTX, XLSX, images) and produces a structured report. A chatbot answers questions over both the documents and the report it generated. |
-| Social listening | Collects public reviews and posts, classifies each one for sentiment, theme and complaint category, then reports on the aggregate. Every figure in the report is computed in Python; the model writes only the prose around it. |
-| Issue log | Consolidates the findings of the other modules into one prioritised list of issues, with the conflicts between sources made explicit, and exports it as a spreadsheet. |
-
-### Projects
-
-A project is not a sixth module. It is a layer over the five: it holds the pipeline for one client
-engagement, results attach to it as each module produces them, and members can be added so a
-colleague sees the same work. The modules do not depend on it and each runs the same way with or
-without a project open.
 
 ## Architecture
 
