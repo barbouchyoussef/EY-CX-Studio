@@ -50,6 +50,16 @@ engagement, results attach to it as each module produces them, and members can b
 colleague sees the same work. The modules do not depend on it and each runs the same way with or
 without a project open.
 
+## Video demos
+
+Watch the demos on Google Drive to explore the platform and both sides of the maturity assessment.
+
+| Demo | Video |
+|---|---|
+| Tool overview | [Watch the tool overview](https://drive.google.com/file/d/1VcirydNiYWovHkBa5g0GcS7dbmsfoYjp/view?usp=sharing) |
+| Maturity assessment — customer side | [Watch the customer-side demo](https://drive.google.com/file/d/1NzzFYzyL6dgWvnnSzSnxKArlUcTcvV-9/view?usp=sharing) |
+| Maturity assessment — admin side | [Watch the admin-side demo](https://drive.google.com/file/d/1iPAVy4nBMF3-H5ScfbQ9aeIZiBX6MqT_/view?usp=sharing) |
+
 ## Product walkthrough
 
 Explore the [maturity assessment](#maturity-assessment-in-action), then see how
